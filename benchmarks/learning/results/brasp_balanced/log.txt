@@ -1,0 +1,12 @@
+repeat-01                  brasp s3 exhausted    46.5s validation-short=0.748 validation-long=0.730 test=0.697
+repeat-01                  brasp s2 exhausted    72.8s validation-short=0.748 validation-long=0.730 test=0.697
+repeat-01                  brasp s1 exhausted    48.1s validation-short=0.794 validation-long=0.772 test=0.734
+repeat-01                  brasp s2 fits        162.7s validation-short=1.000 validation-long=1.000 test=1.000
+even-pairs                 brasp s1 exhausted   207.6s validation-short=0.753 validation-long=0.760 test=0.748
+even-pairs                 brasp s3 exhausted   111.7s validation-short=0.717 validation-long=0.761 test=0.745
+even-pairs                 brasp s2 exhausted   140.2s validation-short=0.733 validation-long=0.766 test=0.746
+repeat-01                  brasp s1 fits        654.8s validation-short=1.000 validation-long=1.000 test=1.000
+repeat-01                  brasp s3 exhausted   640.8s validation-short=0.800 validation-long=0.781 test=0.749
+even-pairs                 brasp s2 fits        402.2s validation-short=0.993 validation-long=0.997 test=1.000
+even-pairs                 brasp s3 fits        282.6s validation-short=1.000 validation-long=1.000 test=1.000
+even-pairs                 brasp s1 fits        611.4s validation-short=1.000 validation-long=1.000 test=1.000

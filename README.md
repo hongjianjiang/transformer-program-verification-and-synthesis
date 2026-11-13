@@ -37,8 +37,9 @@ contradictory labels and unknown alphabet symbols are rejected.
 ```
 
 Common options: `--seed`, `--iters` (per restart), `--restarts`, `--data`,
-`--alphabet`, and `--out`. B-RASP also has `--slots`, `--depth`, and `--tokens`
-(for whitespace-separated symbols). C-RASP uses `--bools` (auxiliary Boolean
+`--alphabet`, and `--out`. B-RASP also has `--slots`, `--depth`, `--tokens`
+(for whitespace-separated symbols) and `--balanced` (weight errors by class
+size; recommended when distinct positives are rare). C-RASP uses `--bools` (auxiliary Boolean
 rules excluding `Out`) and `--counts`; its dataset adapter supports
 single-character alphabets and excludes the internal `rp(...)` primitive, which
 is not supported by the text/Lustre front ends. Both save their best candidate on budget exhaustion.

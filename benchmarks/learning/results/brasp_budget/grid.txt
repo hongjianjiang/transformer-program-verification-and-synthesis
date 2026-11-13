@@ -1,0 +1,6 @@
+repeat-01 big --iters 20000 --restarts 5
+repeat-01 slots8 --iters 20000 --restarts 5 --slots 8
+repeat-01 depth3 --iters 20000 --restarts 5 --depth 3
+even-pairs big --iters 20000 --restarts 5
+even-pairs slots8 --iters 20000 --restarts 5 --slots 8
+even-pairs depth3 --iters 20000 --restarts 5 --depth 3

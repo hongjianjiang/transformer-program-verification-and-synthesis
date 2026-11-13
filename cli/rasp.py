@@ -53,6 +53,7 @@ def parser():
             learn.add_argument('--slots', type=positive, default=6)
             learn.add_argument('--depth', type=nonnegative, default=2)
             learn.add_argument('--tokens', action='store_true')
+            learn.add_argument('--balanced', action='store_true', help='weight errors by class size during search')
         else:
             learn.add_argument('--bools', type=nonnegative, default=4, help='auxiliary Boolean rules, excluding Out')
             learn.add_argument('--counts', type=nonnegative, default=3)
@@ -129,6 +130,8 @@ def learn_command(args):
             options.extend(['--' + name, str(getattr(args, name))])
         if args.tokens:
             options.append('--tokens')
+        if args.balanced:
+            options.append('--balanced')
         return java('brasp', 'brasp.synthesis.RunSynthesis', options)
     return java('crasp', 'cli.DatasetLearning', [args.data, args.alphabet, args.out, args.seed,
                 args.iters, args.restarts, args.bools, args.counts])

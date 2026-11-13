@@ -17,6 +17,10 @@ object LocalSearch:
       expressionDepth: Int = 2,
       startTemperature: Double = 1.0,
       cooling: Double = 0.9995,
+      /** Weight each error by its class size (FN/#pos + FP/#neg) instead of
+        * counting errors. Avoids the reject-everything trap when distinct
+        * positives are rare (e.g. FLaRe repeat-01). */
+      balanced: Boolean = false,
   ):
     require(iterations >= 0 && restarts > 0 && slots > 0 && expressionDepth >= 0)
     require(startTemperature.isFinite && startTemperature > 0)
@@ -115,19 +119,34 @@ object LocalSearch:
           case _ => fresh(i)
         p.copy(subprograms = p.subprograms.updated(i, node))
 
+    val positives = data.count(_.accepted)
+    val negatives = data.size - positives
+    // Error unit: 1 per error, or (balanced) |data|/(2*classSize) so the
+    // total stays on the same scale as a raw count and the temperature
+    // schedule keeps its meaning.
+    val posWeight = if config.balanced && positives > 0 then data.size / (2.0 * positives) else 1.0
+    val negWeight = if config.balanced && negatives > 0 then data.size / (2.0 * negatives) else 1.0
+
+    /** (weighted error, raw error count, size); zero raw errors = fits. */
+    type Score = (Double, Int, Int)
     var evaluations = 0L
-    def score(p: Program): (Int, Int) =
+    def score(p: Program): Score =
       evaluations += 1
       val live = prune(p)
-      (data.count(e => Brasp.accepts(live, e.word) != e.accepted), complexity(live))
-    def better(a: (Int, Int), b: (Int, Int)): Boolean =
-      a._1 < b._1 || (a._1 == b._1 && a._2 < b._2)
-    // The bounded size term is strictly below one classification error.
-    def energy(s: (Int, Int)): Double = s._1 + 0.1 * s._2 / (s._2 + 1.0)
+      var weighted = 0.0
+      var raw = 0
+      for e <- data if Brasp.accepts(live, e.word) != e.accepted do
+        raw += 1
+        weighted += (if e.accepted then posWeight else negWeight)
+      (weighted, raw, complexity(live))
+    def better(a: Score, b: Score): Boolean =
+      a._2 == 0 && b._2 != 0 || (a._2 == 0) == (b._2 == 0) && (a._1 < b._1 || a._1 == b._1 && a._3 < b._3)
+    // The bounded size term is strictly below one (weighted) error unit.
+    def energy(s: Score): Double = s._1 + 0.1 * math.min(posWeight, negWeight) * s._3 / (s._3 + 1.0)
 
     var best = initial()
     var bestScore = score(best)
-    for restart <- 0 until config.restarts if bestScore._1 != 0 do
+    for restart <- 0 until config.restarts if bestScore._2 != 0 do
       var current = if restart == 0 then best else initial()
       var currentScore = if restart == 0 then bestScore else score(current)
       if better(currentScore, bestScore) then
@@ -135,7 +154,7 @@ object LocalSearch:
         bestScore = currentScore
       var temperature = config.startTemperature
       var iteration = 0
-      while iteration < config.iterations && bestScore._1 != 0 do
+      while iteration < config.iterations && bestScore._2 != 0 do
         val candidate = mutate(current)
         val candidateScore = score(candidate)
         if better(candidateScore, bestScore) then
@@ -147,4 +166,4 @@ object LocalSearch:
           currentScore = candidateScore
         temperature *= config.cooling
         iteration += 1
-    Result(prune(best), bestScore._1, data.size, evaluations)
+    Result(prune(best), bestScore._2, data.size, evaluations)

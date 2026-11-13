@@ -1,0 +1,8 @@
+alphabet a b
+
+bos_input = bos
+symbol_0 = symbol a
+node_0 = rightmost(!symbol_0@i, symbol_0@j)
+node_5 = node_0 | bos_input
+
+output node_5

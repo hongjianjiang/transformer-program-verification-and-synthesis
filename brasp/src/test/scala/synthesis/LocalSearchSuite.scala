@@ -30,6 +30,16 @@ class LocalSearchSuite extends munit.FunSuite:
     assertEquals(result.errors, data.count(e => Brasp.accepts(result.program, e.word) != e.accepted))
   }
 
+  test("balanced objective reports raw errors, is reproducible, and respects its budget") {
+    // (ab)* up to length 4: 3 positives against 28 negatives.
+    val data = words(4).map(w => Example(w, w.grouped(2).forall(_ == Vector("a", "b"))))
+    val cfg = Config(seed = 3, slots = 4, iterations = 2000, restarts = 2, balanced = true)
+    val result = learn(alphabet, data, cfg)
+    assertEquals(result.errors, data.count(e => Brasp.accepts(result.program, e.word) != e.accepted))
+    assertEquals(learn(alphabet, data, cfg), result)
+    assert(result.evaluations <= cfg.restarts.toLong * (cfg.iterations + 1))
+  }
+
   test("empty word is evaluated at BOS; budget exhaustion is not success") {
     val data = Vector(Example(Vector.empty, true), Example(Vector("a"), false))
     val result = learn(alphabet, data, Config(iterations = 0, restarts = 1))

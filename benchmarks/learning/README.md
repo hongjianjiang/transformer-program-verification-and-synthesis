@@ -38,3 +38,27 @@ languages):
 
 A perfect held-out score is evidence, not proof; use `rasp ... verify
 equivalent` against a reference program to establish equivalence.
+
+`reference/` holds hand-written B-RASP programs for `even-pairs` and
+`repeat-01`. Both score 100% on every FLaRe split and fit the learner's
+default search space (6 slots, depth 2), so a learner failure on these
+languages is a search failure, not an expressivity limit.
+
+### B-RASP search configuration
+
+The runner defaults (300 training words, 20,000 iterations × 5 restarts,
+`--balanced`) come from a budget study on `repeat-01` and `even-pairs`
+(`results/brasp_budget/`, `results/brasp_balanced/`, 3 seeds each):
+
+| Configuration | even-pairs fits | repeat-01 fits |
+| --- | --- | --- |
+| 5,000 × 2, raw error count (pilot, 1,000 words) | 0/1 | 0/1 |
+| 20,000 × 5, raw error count (also with 8 slots or depth 3) | 6/9 | 0/9 |
+| 5,000 × 2, balanced | 0/3 | 0/3 |
+| 20,000 × 5, balanced | 3/3 | 2/3 |
+
+With raw error counts, `repeat-01` is stuck at exactly the 20 non-empty
+positives: its 300 training words contain only 21 distinct positives against
+147 distinct negatives, so "accept only the empty word" is a deep local
+minimum. Weighting errors by class size removes it. Every run that fit its
+samples scored 100% on the length-500 test split.

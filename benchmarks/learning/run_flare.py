@@ -10,7 +10,7 @@ its training and scoring data; the number dropped is recorded per run.
 
 Example (smoke test):
   python3 benchmarks/learning/run_flare.py --languages first majority \
-      --train-size 1000 --iters 5000 --restarts 2
+      --iters 5000 --restarts 2
 """
 import argparse
 import json
@@ -52,11 +52,12 @@ def run_one(args, lang, learner, seed, alphabet, work):
     cmd = [str(RASP), learner, 'learn', '--data', str(train), '--alphabet', alphabet, '--out', str(program),
            '--seed', str(seed), '--iters', str(args.iters), '--restarts', str(args.restarts)]
     if learner == 'brasp':
-        cmd += ['--slots', str(args.slots)]
+        cmd += ['--slots', str(args.slots), '--depth', str(args.depth)] + (['--balanced'] if args.balanced else [])
     else:
         cmd += ['--bools', str(args.bools), '--counts', str(args.counts)]
     record = {'language': lang, 'learner': learner, 'seed': seed, 'train_words': n_train,
-              'empty_dropped_train': dropped, 'iters': args.iters, 'restarts': args.restarts}
+              'empty_dropped_train': dropped, 'iters': args.iters, 'restarts': args.restarts,
+              'config': vars(args).get('tag')}
     start = time.monotonic()
     try:
         proc = subprocess.run(cmd, capture_output=True, text=True, timeout=args.timeout)
@@ -92,12 +93,16 @@ def main():
     p.add_argument('--languages', nargs='+', help='default: all in the manifest')
     p.add_argument('--learners', nargs='+', default=['brasp', 'crasp'], choices=['brasp', 'crasp'])
     p.add_argument('--seeds', nargs='+', type=int, default=[1])
-    p.add_argument('--train-size', type=int, default=1000, help='first N training words (0 = all)')
-    p.add_argument('--iters', type=int, default=5000)
-    p.add_argument('--restarts', type=int, default=2)
+    p.add_argument('--train-size', type=int, default=300, help='first N training words (0 = all)')
+    p.add_argument('--iters', type=int, default=20000)
+    p.add_argument('--restarts', type=int, default=5)
     p.add_argument('--slots', type=int, default=6)
+    p.add_argument('--depth', type=int, default=2, help='B-RASP expression depth')
     p.add_argument('--bools', type=int, default=4)
     p.add_argument('--counts', type=int, default=3)
+    p.add_argument('--balanced', action=argparse.BooleanOptionalAction, default=True,
+                   help='B-RASP class-balanced search objective (default: on)')
+    p.add_argument('--tag', help='label stored with each record')
     p.add_argument('--timeout', type=int, default=1800, help='seconds per learner call')
     p.add_argument('--results', type=Path, default=HERE / 'results/flare.jsonl')
     p.add_argument('--programs', type=Path, default=HERE / 'results/programs')

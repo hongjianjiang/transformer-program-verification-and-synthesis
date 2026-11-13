@@ -1,0 +1,10 @@
+alphabet a b
+
+bos_input = bos
+symbol_0 = symbol a
+symbol_1 = symbol b
+node_0 = rightmost(symbol_1@i, bos_input@j)
+node_1 = rightmost(symbol_0@i | node_0@j, bos_input@j | !symbol_0@i)
+node_5 = leftmost((node_0@i | node_1@i) | symbol_0@i & node_1@j, !symbol_1@j)
+
+output node_5

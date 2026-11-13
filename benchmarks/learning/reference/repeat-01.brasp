@@ -1,0 +1,14 @@
+# FLaRe repeat-01: (01)*, here (ab)*. A position is bad if it repeats the
+# previous symbol, or is a b with no a before it (b first). 4 slots, depth 2.
+alphabet a b
+
+is_bos = bos
+is_a = symbol a
+is_b = symbol b
+prev_a = rightmost(true, is_a@j)
+bad_here = is_a & prev_a | is_b & !prev_a
+bad_before = rightmost(bad_here@j, true)
+bad = bad_here | bad_before
+accept = !bad & !is_a
+
+output accept

@@ -1,0 +1,15 @@
+# FLaRe even-pairs: #ab = #ba, i.e. the word is empty or its first symbol
+# equals its last. Fits the learner's default space: 6 slots, depth 2.
+alphabet a b
+
+is_bos = bos
+is_a = symbol a
+is_b = symbol b
+seen_symbol = rightmost(!is_bos@j, true)
+at_first = !is_bos & !seen_symbol
+saw_first_a = rightmost(at_first@j & is_a@j, true)
+saw_first_b = rightmost(at_first@j & is_b@j, true)
+last_matches = is_a & saw_first_a | is_b & saw_first_b
+accept = last_matches | at_first | is_bos
+
+output accept

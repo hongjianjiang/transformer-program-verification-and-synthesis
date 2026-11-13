@@ -1,0 +1,7 @@
+alphabet a b
+
+symbol_0 = symbol a
+node_0 = rightmost(true, symbol_0@i | !symbol_0@j)
+node_2 = !node_0
+
+output node_2

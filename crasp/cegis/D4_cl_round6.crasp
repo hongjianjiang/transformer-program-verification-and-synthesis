@@ -1,0 +1,5 @@
+ALPHABET: a b
+
+B1 = 3 = #(b) & b
+C1 = 1
+Out = B1 & %2=1

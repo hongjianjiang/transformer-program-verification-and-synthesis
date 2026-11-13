@@ -1,0 +1,10 @@
+ALPHABET: a b c d
+
+SeenD = 1 <= #d
+BadPos = (a & SeenD) | (c & !SeenD)
+Bad = #BadPos
+
+OneD = (#d = 1)
+NoBad = (Bad = 0)
+
+Out = OneD & NoBad

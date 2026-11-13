@@ -1,0 +1,11 @@
+logic past-strict
+alphabet s0 s1
+
+is_bos := bos@i
+is_s0 := sym(s0)@i
+is_s1 := sym(s1)@i
+h1_1 := (!((!(is_s0@i) & is_s1@i & !(is_s0@j)))) S (((!(is_s0@i) & is_s1@i & !(is_s0@j)) & (is_s1@i & !(is_s1@j))))
+accept := (!(is_bos@i) & !(h1_1@i))
+
+output := accept@i
+evaluate at i = |w| (the final input position)

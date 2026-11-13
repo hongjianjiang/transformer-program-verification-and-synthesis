@@ -1,0 +1,5 @@
+ALPHABET: a b c
+
+B1 = c | #(a) < #(%2=0)
+C1 = 1
+Out = #(b) = #(B1)

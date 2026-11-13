@@ -1,0 +1,5 @@
+ALPHABET: a b
+
+B1 = %2=0 | rp(b)
+C1 = 0
+Out = B1 & C1 < #<(1,1)(B1)

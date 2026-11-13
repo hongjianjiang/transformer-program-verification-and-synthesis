@@ -1,0 +1,5 @@
+ALPHABET: a b
+
+B1 = %2=0 | a
+C1 = 4
+Out = #(B1) = 4

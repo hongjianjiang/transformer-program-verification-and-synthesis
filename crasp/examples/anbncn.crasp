@@ -1,0 +1,26 @@
+ALPHABET: a b c
+
+Qa = a
+Qb = b
+Qc = c
+
+Ca = #Qa
+Cb = #Qb
+Cc = #Qc
+
+A  = Cb + Cc = 0
+
+B  = Cc = 0
+
+QaA = Qa & A
+QbB = Qb & B
+
+CA = #QaA
+CB = #QbB
+
+Ga = CA = Ca
+Gb = CB = Cb
+
+Gabc = (Ca = Cb) & (Cb = Cc)
+
+Out = Ga & Gb & Gabc

@@ -1,0 +1,19 @@
+ALPHABET: a b c
+
+CPa = #<(1) a
+PREDa = 1 <= CPa
+
+Baa = a & PREDa
+Bab = b & PREDa
+Bac = c & PREDa
+
+Caa = #Baa
+Cab = #Bab
+Cac = #Bac
+
+MORE_aa_ab = Cab <= Caa
+MORE_aa_ac = Cac <= Caa
+
+HasAFollow = 1 <= (Caa + Cab + Cac)
+NEXT_a = a & HasAFollow & MORE_aa_ab & MORE_aa_ac
+Out = 1 <= #NEXT_a

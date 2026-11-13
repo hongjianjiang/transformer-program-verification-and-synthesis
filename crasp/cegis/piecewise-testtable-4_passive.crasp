@@ -1,0 +1,18 @@
+ALPHABET: a b c d
+
+B1 = a
+B2 = b
+B3 = c
+B4 = d
+B5 = 1 <= C1
+B6 = B2 & B5
+B7 = 1 <= C2
+B8 = B3 & B7
+B9 = 1 <= C3
+B10 = B4 & B9
+B11 = 1 <= C4
+C1 = #(B1)
+C2 = #(B6)
+C3 = #(B8)
+C4 = #(B10)
+Out = B11

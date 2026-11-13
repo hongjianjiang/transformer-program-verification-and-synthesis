@@ -1,0 +1,13 @@
+ALPHABET: a b
+
+A = a
+B = b
+
+CA = #A
+L1 = 1 <= CA
+
+QB = B & L1
+CB = #QB
+L2 = 1 <= CB 
+
+Out = L2

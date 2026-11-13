@@ -85,10 +85,10 @@ across one another by this CLI. C-RASP comparison requires matching alphabets.
 
 Set `ABC_BIN` or `KIND2_BIN` instead of passing executable paths each time.
 The CLI also automatically finds a workspace-local ABC at `abc/abc`.
-To build that installation from the official source:
+ABC is included as a git submodule pinned to a tested commit. To build it:
 
 ```sh
-git clone --depth 1 https://github.com/berkeley-abc/abc.git abc
+git submodule update --init abc   # or clone with --recurse-submodules
 make -C abc -j4 ABC_USE_NO_READLINE=1
 ```
 

@@ -1,0 +1,11 @@
+logic past-strict
+alphabet s0 s1 s2 s3
+
+is_s0 := sym(s0)@i
+is_s1 := sym(s1)@i
+is_s2 := sym(s2)@i
+is_s3 := sym(s3)@i
+accept := (!(((is_s0@i & is_s0@j) | (is_s1@i & is_s1@j) | (is_s2@i & is_s2@j) | (is_s3@i & is_s3@j)))) S ((((is_s0@i & is_s0@j) | (is_s1@i & is_s1@j) | (is_s2@i & is_s2@j) | (is_s3@i & is_s3@j)) & true))
+
+output := accept@i
+evaluate at i = |w| (the final input position)

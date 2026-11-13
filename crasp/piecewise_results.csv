@@ -1,0 +1,4 @@
+target,ok,train_acc,eval_acc,learn_ms,program_size,timeout
+piecewise-testtable-2,true,1.0,1.0,164664,78,false
+piecewise-testtable-3,false,0.0,0.0,0,0,true
+piecewise-testtable-4,false,0.0,0.0,0,0,true

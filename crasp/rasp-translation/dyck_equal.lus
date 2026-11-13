@@ -1,0 +1,76 @@
+node left___ONE_IF__ (B: bool) returns (V: int);
+let
+  V = if B then 1 else 0;
+tel
+
+node left___COUNT_TRUE__ (B: bool) returns (S: int);
+var
+  ONE_IF: int;
+let
+  ONE_IF = if B then 1 else 0;
+  S = (ONE_IF -> (ONE_IF + pre(S)));
+tel
+
+node left_MAIN (__I__: int) returns (Out: bool);
+var
+  B1: bool;
+  B2: bool;
+let
+  B1 = (left___COUNT_TRUE__((__I__ = 2)) = left___COUNT_TRUE__((__I__ = 3)));
+  B2 = ((__I__ = 3) and B1);
+  Out = ((left___COUNT_TRUE__(B1) = left___COUNT_TRUE__(B2)) and B1);
+tel
+
+node right___ONE_IF__ (B: bool) returns (V: int);
+let
+  V = if B then 1 else 0;
+tel
+
+node right___COUNT_TRUE__ (B: bool) returns (S: int);
+var
+  ONE_IF: int;
+let
+  ONE_IF = if B then 1 else 0;
+  S = (ONE_IF -> (ONE_IF + pre(S)));
+tel
+
+node right_MAIN (__I__: int) returns (Out: bool);
+var
+  L: bool;
+  R: bool;
+  V: bool;
+  M: bool;
+  B: bool;
+  CL: int;
+  CR: int;
+  CV: int;
+  C0: int;
+let
+  L = (__I__ = 2);
+  R = (__I__ = 3);
+  V = (CL < CR);
+  M = (CV = C0);
+  B = (CL = CR);
+  Out = (M and B);
+  CL = right___COUNT_TRUE__((__I__ = 2));
+  CR = right___COUNT_TRUE__((__I__ = 3));
+  CV = right___COUNT_TRUE__(V);
+  C0 = 0;
+tel
+
+node __COMPARE__ (__I__: int) returns ();
+(*@contract
+  var __GOOD_CHAR: bool = ((((false or (__I__ = 0)) or (__I__ = 1)) or (__I__ = 2)) or (__I__ = 3));
+  var __GOOD_CHARS: bool = (__GOOD_CHAR -> (__GOOD_CHAR and pre(__GOOD_CHARS)));
+  var __GOOD_EOS: bool = (not (__I__ = 1) -> (not pre(((__I__ = 0) or (__I__ = 1))) or (__I__ = 1)));
+  assume (__GOOD_CHARS and __GOOD_EOS);
+*)var
+  __O1__: bool;
+  __O2__: bool;
+  __P__: bool;
+let
+  __O1__ = left_MAIN(__I__);
+  __O2__ = right_MAIN(__I__);
+  __P__ = (true -> (not (__I__ = 0) or pre((__O1__ = __O2__))));
+  check __P__;
+tel

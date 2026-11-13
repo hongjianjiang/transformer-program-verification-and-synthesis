@@ -1,0 +1,40 @@
+logic past-strict
+alphabet b0 b1 sep
+
+is_bos := bos@i
+is_sep := sym(sep)@i
+is_one := sym(b1)@i
+d_0 := is_sep@i
+y_1 := (!(true)) S ((true & d_0@j))
+d_1 := (!(is_sep@i) & y_1@i)
+y_2 := (!(true)) S ((true & d_1@j))
+d_2 := (!(is_sep@i) & y_2@i)
+y_3 := (!(true)) S ((true & d_2@j))
+d_3 := (!(is_sep@i) & y_3@i)
+y_4 := (!(true)) S ((true & d_3@j))
+d_4 := (!(is_sep@i) & y_4@i)
+y_5 := (!(true)) S ((true & d_4@j))
+d_5 := (!(is_sep@i) & y_5@i)
+block_end := d_5@i
+one_0 := is_one@i
+one_1 := (!(true)) S ((true & one_0@j))
+one_2 := (!(true)) S ((true & one_1@j))
+one_3 := (!(true)) S ((true & one_2@j))
+one_4 := (!(true)) S ((true & one_3@j))
+bit_0 := one_4@i
+bit_1 := one_3@i
+bit_2 := one_2@i
+bit_3 := one_1@i
+bit_4 := one_0@i
+prev_end := (!(true)) S ((true & block_end@j))
+prev_bos := (!(true)) S ((true & is_bos@j))
+in_block := (d_1@i | d_2@i | d_3@i | d_4@i | d_5@i)
+good := ((!(is_sep@i) | prev_bos@i | prev_end@i) & (is_sep@i | in_block@i))
+conflict := (!((block_end@j & ((bit_1@i & bit_1@j) | (!(bit_1@i) & !(bit_1@j))) & ((bit_2@i & bit_2@j) | (!(bit_2@i) & !(bit_2@j))) & ((bit_3@i & bit_3@j) | (!(bit_3@i) & !(bit_3@j))) & ((bit_4@i & bit_4@j) | (!(bit_4@i) & !(bit_4@j))) & !(((bit_0@i & bit_0@j) | (!(bit_0@i) & !(bit_0@j))))))) S (((block_end@j & ((bit_1@i & bit_1@j) | (!(bit_1@i) & !(bit_1@j))) & ((bit_2@i & bit_2@j) | (!(bit_2@i) & !(bit_2@j))) & ((bit_3@i & bit_3@j) | (!(bit_3@i) & !(bit_3@j))) & ((bit_4@i & bit_4@j) | (!(bit_4@i) & !(bit_4@j))) & !(((bit_0@i & bit_0@j) | (!(bit_0@i) & !(bit_0@j))))) & true))
+ok := (!(block_end@i) | !(conflict@i))
+bad_before := (!((!(is_bos@j) & !(good@j)))) S (((!(is_bos@j) & !(good@j)) & true))
+not_ok_before := (!((!(is_bos@j) & !(ok@j)))) S (((!(is_bos@j) & !(ok@j)) & true))
+accept := (block_end@i & good@i & !(bad_before@i) & ok@i & !(not_ok_before@i))
+
+output := accept@i
+evaluate at i = |w| (the final input position)

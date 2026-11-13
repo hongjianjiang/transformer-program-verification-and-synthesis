@@ -1,0 +1,6 @@
+ALPHABET: a b
+
+Good = (a & %2=0) | (b & %2=1)
+Bad  = #(!Good)
+
+Out = (%2=1) & (Bad = 0)

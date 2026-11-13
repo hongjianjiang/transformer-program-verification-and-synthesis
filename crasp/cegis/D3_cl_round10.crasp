@@ -1,0 +1,10 @@
+ALPHABET: a b
+
+B1 = a
+B5 = b
+C1 = 1
+B2 = B1
+B3 = B2
+B4 = B3
+B6 = #<(3,3)(B4) = 1 & #(b) = 2
+Out = B6 & B5

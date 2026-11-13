@@ -1,0 +1,15 @@
+ALPHABET: a b
+
+Ca = #a
+Cb = #b
+Bal = Ca - Cb
+
+Neg = (Ca < Cb)
+TooDeep = (4 < Bal)
+
+Viol = Neg | TooDeep
+
+Balanced = (Ca = Cb)
+NoViol = (#Viol = 0)
+
+Out = Balanced & NoViol

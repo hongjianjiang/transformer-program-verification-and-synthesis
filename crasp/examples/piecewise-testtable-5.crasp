@@ -1,0 +1,28 @@
+ALPHABET: a b c d e
+
+A = a
+B = b
+C = c
+D = d
+E = e
+
+CA = #A
+L1 = 1 <= CA
+
+QB = B & L1
+CB = #QB
+L2 = 1 <= CB
+
+QC = C & L2
+CC = #QC
+L3 = 1 <= CC
+
+QD = D & L3
+CD = #QD
+L4 = 1 <= CD
+
+QE = E & L4
+CE = #QE
+L5 = 1 <= CE
+
+Out = L5

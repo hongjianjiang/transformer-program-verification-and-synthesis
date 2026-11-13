@@ -1,0 +1,4 @@
+ALPHABET: a
+
+CnotA = #(!a)
+Out = (%2=1) & (CnotA=0)

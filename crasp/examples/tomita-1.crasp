@@ -1,0 +1,4 @@
+ALPHABET: a b
+B1 = b 
+C1 = #B1 
+Out = (C1 = 0)

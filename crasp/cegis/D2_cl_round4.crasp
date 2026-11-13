@@ -1,0 +1,5 @@
+ALPHABET: a b
+
+B1 = a
+C1 = 4
+Out = #(B1) = 1 & b

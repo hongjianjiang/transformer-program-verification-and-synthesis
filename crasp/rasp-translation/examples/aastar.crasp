@@ -1,0 +1,4 @@
+ALPHABET: a
+
+CnotA = #(!a)
+D = (% 2 = 0) & (CnotA = 0)

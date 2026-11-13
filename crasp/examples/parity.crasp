@@ -1,0 +1,9 @@
+// Parity language: strings over {a,b} where the number of b's is even.
+// The exact encoding requires the RunParity primitive (rp(b)), which is
+// generated programmatically by the learner.  This file defines the
+// alphabet so that RunPL can drive passive learning for the target.
+ALPHABET: a b
+
+B = b
+Cb = #B
+Out = (Cb = 0)

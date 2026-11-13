@@ -1,0 +1,31 @@
+logic past-strict
+alphabet b0 b1 sep
+
+is_bos := bos@i
+is_b0 := sym(b0)@i
+is_b1 := sym(b1)@i
+is_sep := sym(sep)@i
+h1_1 := (!((!(is_b0@i) & !(is_sep@i) & !(is_bos@j)))) S (((!(is_b0@i) & !(is_sep@i) & !(is_bos@j)) & (!(is_sep@i) & !(is_bos@j) & !(is_sep@j))))
+h1_2_seen := (!((!(is_b1@j) & !(is_bos@j) & !(is_sep@j) & is_b0@j))) S (((!(is_b1@j) & !(is_bos@j) & !(is_sep@j) & is_b0@j) & true))
+h1_2_first := (!(h1_2_seen@i) & !(is_b1@i) & !(is_bos@i) & !(is_sep@i) & is_b0@i)
+h1_2_at := (!(h1_2_first@j)) S ((h1_2_first@j & (!(is_sep@i) & !(is_b1@j))))
+h1_2 := (!(is_sep@i) & h1_2_at@i)
+h2_1 := (!((!(is_b1@i) & h1_1@i & h1_2@i & !(is_bos@j) & h1_2@j))) S (((!(is_b1@i) & h1_1@i & h1_2@i & !(is_bos@j) & h1_2@j) & (!(is_bos@j) & !(is_sep@j) & h1_2@j)))
+h2_2_seen := (!((!(h1_1@j) & !(is_b0@j) & !(is_bos@j) & !(is_sep@j) & is_b1@j))) S (((!(h1_1@j) & !(is_b0@j) & !(is_bos@j) & !(is_sep@j) & is_b1@j) & true))
+h2_2_first := (!(h1_1@i) & !(h2_2_seen@i) & !(is_b0@i) & !(is_bos@i) & !(is_sep@i) & is_b1@i)
+h2_2_at := (!(h2_2_first@j)) S ((h2_2_first@j & (!(is_b0@i) & is_b1@i & !(is_bos@j) & !(is_b0@j) & is_b1@j & !(is_sep@j) & !(h1_1@j) & h1_2@j)))
+h2_2 := (!(is_b0@i) & h2_2_at@i & is_b1@i)
+h3_1 := (!((is_bos@i & is_b1@i & is_sep@i & !(h1_1@i) & !(h1_2@i) & h2_2@i & is_bos@j & !(is_b0@j) & !(h1_1@j) & h1_2@j & h2_1@j & h2_2@j))) S (((is_bos@i & is_b1@i & is_sep@i & !(h1_1@i) & !(h1_2@i) & h2_2@i & is_bos@j & !(is_b0@j) & !(h1_1@j) & h1_2@j & h2_1@j & h2_2@j) & (is_bos@i & is_sep@i & !(h1_1@i) & h1_2@i & h2_1@i & is_b0@j & is_sep@j & h2_1@j)))
+h3_2_seen := (!((!(h2_1@j) & !(is_bos@j)))) S (((!(h2_1@j) & !(is_bos@j)) & true))
+h3_2_first := (!(h2_1@i) & !(h3_2_seen@i) & !(is_bos@i))
+h3_2_at := (!(h3_2_first@j)) S ((h3_2_first@j & (h1_2@i & !(h2_1@i) & !(h2_2@i) & !(is_bos@j) & !(is_b0@j) & !(is_b1@j) & is_sep@j & !(h1_1@j) & !(h1_2@j) & !(h2_1@j) & !(h2_2@j))))
+h3_2 := h3_2_at@i
+h4_1 := (!((!(is_b0@i) & is_b1@i & h1_1@i & !(h1_2@i) & h3_2@i & !(is_b0@j) & !(is_sep@j) & h1_2@j & h2_2@j & h3_1@j & !(h3_2@j)))) S (((!(is_b0@i) & is_b1@i & h1_1@i & !(h1_2@i) & h3_2@i & !(is_b0@j) & !(is_sep@j) & h1_2@j & h2_2@j & h3_1@j & !(h3_2@j)) & (is_b0@j & is_sep@j & !(h1_1@j) & !(h1_2@j) & h2_2@j & h3_2@j)))
+h5_2_seen := (!((!(is_b0@j) & !(is_b1@j) & !(is_sep@j) & h1_1@j & h1_2@j))) S (((!(is_b0@j) & !(is_b1@j) & !(is_sep@j) & h1_1@j & h1_2@j) & true))
+h5_2_first := (!(h5_2_seen@i) & !(is_b0@i) & !(is_b1@i) & !(is_sep@i) & h1_1@i & h1_2@i)
+h5_2_at := (!(h5_2_first@j)) S ((h5_2_first@j & (is_bos@i & !(h1_1@i) & h3_2@i & !(is_b0@j) & h2_1@j & h3_1@j)))
+h5_2 := (!(h1_1@i) & !(h1_2@i) & !(is_b0@i) & h2_1@i & h4_1@i & h5_2_at@i & is_sep@i)
+accept := (!(is_bos@i) & !(is_sep@i) & h1_2@i & !(h2_1@i) & !(h2_2@i) & h3_2@i & !(h5_2@i))
+
+output := accept@i
+evaluate at i = |w| (the final input position)

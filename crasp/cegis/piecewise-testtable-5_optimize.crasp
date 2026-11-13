@@ -1,0 +1,9 @@
+ALPHABET: a b c d e
+
+B1 = e
+B3 = %2=0 | b
+C1 = 1
+C2 = 0
+C3 = 0
+B2 = B1
+Out = B2 & 4 = #(B3)

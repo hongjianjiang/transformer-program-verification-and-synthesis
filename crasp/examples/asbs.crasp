@@ -1,0 +1,11 @@
+ALPHABET: a b
+
+Qa = a
+Qb = b
+
+V  = Qa & (0 < Cb)     
+Y  = CV = 0             
+Out = Y
+
+Cb = #Qb               
+CV = #V                

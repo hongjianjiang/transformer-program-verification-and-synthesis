@@ -1,0 +1,12 @@
+ALPHABET: a b
+
+A1 = #<(1) a
+P1 = 1 <= A1
+
+A2 = #<(2) a
+P2 = 1 <= A2
+
+AAApos = a & P1 & P2
+CAAA = #AAApos
+
+Out = (CAAA = 0)

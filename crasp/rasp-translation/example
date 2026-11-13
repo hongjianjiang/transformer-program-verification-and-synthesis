@@ -1,0 +1,41 @@
+
+node __ONE_IF__ (B: bool) returns (V: int);
+let
+  V = if B then 1 else 0;
+tel
+
+node __COUNT_TRUE__ (B: bool) returns (S: int);
+var
+  ONE_IF: int;
+let
+  ONE_IF = if B then 1 else 0;
+  S = (ONE_IF -> (ONE_IF + pre(S)));
+tel
+
+node MAIN (__I__: int) returns (Out: bool);
+var
+  __POS__: int;
+  Good: bool;
+  Bad: int;
+let
+  __POS__ = (0 -> (pre(__POS__) + 1));
+  Good = (((__I__ = 2) and (0 = (__POS__ mod 2))) or ((__I__ = 3) and (1 = (__POS__ mod 2))));
+  Out = ((1 = (__POS__ mod 2)) and (Bad = 0));
+  Bad = __COUNT_TRUE__(not Good);
+tel
+
+node __CHECK__ (__I__: int) returns ();
+(*@contract
+  var __GOOD_CHAR: bool = ((((false or (__I__ = 0)) or (__I__ = 1)) or (__I__ = 2)) or (__I__ = 3));
+  var __GOOD_CHARS: bool = (__GOOD_CHAR -> (__GOOD_CHAR and pre(__GOOD_CHARS)));
+  var __GOOD_EOS: bool = (not (__I__ = 1) -> (not pre(((__I__ = 0) or (__I__ = 1))) or (__I__ = 1)));
+  assume (__GOOD_CHARS and __GOOD_EOS);
+*)var
+  __O1__: bool;
+  __P__: bool;
+let
+  __O1__ = MAIN(__I__);
+  __P__ = (true -> (not (__I__ = 0) or pre(__O1__)));
+  check __P__;
+tel
+

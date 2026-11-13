@@ -1,0 +1,6 @@
+target,ok,train_acc,eval_acc,learn_ms,program_size,timeout
+tomita-4,true,1.0,1.0,62,81,false
+tomita-7,true,1.0,1.0,6,63,false
+anbncn,true,1.0,1.0,42,207,false
+next_max,true,1.0,1.0,21,189,false
+next_all,true,1.0,1.0,9,287,false

@@ -1,0 +1,42 @@
+ALPHABET: a b c d e f g
+
+F0 = (#f = 0)
+F1 = (#f = 1)
+
+Agt1 = (1 < #a)
+Bgt1 = (1 < #b)
+Cgt1 = (1 < #c)
+Dgt1 = (1 < #d)
+Egt1 = (1 < #e)
+
+Alt1 = (#a < 1)
+Blt1 = (#b < 1)
+Clt1 = (#c < 1)
+Dlt1 = (#d < 1)
+Elt1 = (#e < 1)
+
+Alt2 = (#a < 2)
+Blt2 = (#b < 2)
+Clt2 = (#c < 2)
+Dlt2 = (#d < 2)
+
+Aeq2 = (#a = 2)
+Beq2 = (#b = 2)
+Ceq2 = (#c = 2)
+Deq2 = (#d = 2)
+Eeq2 = (#e = 2)
+
+SeenEOS = (0 < #g)
+
+ViolUnique = F0 & (Agt1 | Bgt1 | Cgt1 | Dgt1 | Egt1)
+ViolAll    = f & (Alt1 | Blt1 | Clt1 | Dlt1 | Elt1)
+
+ViolSorted = F1 & ((b & Alt2) | (c & Blt2) | (d & Clt2) | (e & Dlt2))
+
+Viol = ViolUnique | ViolSorted | ViolAll
+ViolEq0 = (#Viol = 0)
+SeenSep = F1
+SeenEachCharTwice = Aeq2 & Beq2 & Ceq2 & Deq2 & Eeq2
+
+Lang = SeenSep & SeenEachCharTwice & ViolEq0 & SeenEOS
+Out = Lang

@@ -1,0 +1,8 @@
+ALPHABET: a b
+
+Pa = a
+Pb = b
+M = Ca <= Cb
+
+Ca = #Pa
+Cb = #Pb

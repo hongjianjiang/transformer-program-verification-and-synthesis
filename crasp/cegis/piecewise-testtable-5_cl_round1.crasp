@@ -1,0 +1,5 @@
+ALPHABET: a b c d e
+
+B1 = #(b) = 1 | b
+C1 = 3
+Out = 4 < #(B1)

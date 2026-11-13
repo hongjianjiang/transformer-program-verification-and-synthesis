@@ -1,0 +1,28 @@
+ALPHABET: a b c
+
+Pa = a
+Pb = b
+Pc = c
+
+PA = Cbplusc = C0
+PB = Cc = C0
+Ga = CA = Ca
+Gb = CB = Cb
+Gab = Ca = Cb
+Gbc = Cb = Cc
+Gabc = Gab & Gbc
+PaA = Pa & PA
+PbB = Pb & PB
+
+L = Ga & Gb & Gabc
+
+C0 = 0
+Ca = #Pa
+Cb = #Pb
+Cc = #Pc
+
+Cbplusc = Ca + Cb
+CA = #PaA
+CB = #PbB
+
+

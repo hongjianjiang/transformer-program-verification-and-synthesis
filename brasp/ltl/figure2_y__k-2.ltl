@@ -1,0 +1,9 @@
+logic past-strict
+alphabet a b
+
+is_a := sym(a)@i
+prev_1 := (!(true)) S ((true & is_a@j))
+prev_2 := (!(true)) S ((true & prev_1@j))
+
+output := prev_2@i
+evaluate at i = |w| (the final input position)

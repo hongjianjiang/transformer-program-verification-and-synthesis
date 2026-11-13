@@ -1,0 +1,17 @@
+ALPHABET: a b
+
+S0 = %3 = 0
+S1 = %3 = 1
+S2 = %3 = 2
+
+Ca0 = #(S0 & a)
+Cb0 = #(S0 & b)
+Ca1 = #(S1 & a)
+Cb1 = #(S1 & b)
+Ca2 = #(S2 & a)
+Cb2 = #(S2 & b)
+
+M0 = Cb0 < Ca0
+M1 = Cb1 < Ca1
+M2 = Cb2 < Ca2
+

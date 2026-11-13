@@ -1,0 +1,7 @@
+ALPHABET: a b
+
+PrevA = 1 <= #<(1) a
+Hit = b & PrevA
+CHit = #Hit
+
+Out = 1 <= CHit

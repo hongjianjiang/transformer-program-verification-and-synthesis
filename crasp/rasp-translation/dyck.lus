@@ -1,0 +1,36 @@
+node __ONE_IF__ (B: bool) returns (V: int);
+let
+  V = if B then 1 else 0;
+tel
+
+node __COUNT_TRUE__ (B: bool) returns (S: int);
+var
+  ONE_IF: int;
+let
+  ONE_IF = if B then 1 else 0;
+  S = (ONE_IF -> (ONE_IF + pre(S)));
+tel
+
+node MAIN (__I__: int) returns (D: bool);
+var
+  L: bool;
+  R: bool;
+  V: bool;
+  M: bool;
+  B: bool;
+  CL: int;
+  CR: int;
+  CV: int;
+  C0: int;
+let
+  L = (__I__ = 2);
+  R = (__I__ = 3);
+  V = (CL < CR);
+  M = (CV = C0);
+  B = (CL = CR);
+  D = (M and B);
+  CL = __COUNT_TRUE__((__I__ = 2));
+  CR = __COUNT_TRUE__((__I__ = 3));
+  CV = __COUNT_TRUE__(V);
+  C0 = 0;
+tel

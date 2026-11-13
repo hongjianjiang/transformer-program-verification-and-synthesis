@@ -1,0 +1,8 @@
+ALPHABET: a b c
+
+B1 = !c
+B2 = #(a) <= #(b)
+C1 = 1
+C2 = 0
+Out = #(B1) = #(B2) & c
+

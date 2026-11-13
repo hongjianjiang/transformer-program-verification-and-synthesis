@@ -1,0 +1,5 @@
+ALPHABET: a b
+
+B1 = 0 < #(b)
+C1 = 5
+Out = #(a) = #(B1)

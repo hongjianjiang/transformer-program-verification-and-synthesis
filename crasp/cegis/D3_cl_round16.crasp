@@ -1,0 +1,10 @@
+ALPHABET: a b
+
+B1 = b
+C1 = 2
+B2 = B1
+B3 = 0 = #(B1)
+B4 = B2
+B5 = !B4
+B6 = !B5
+Out = B6 & #(b) = #(B3)

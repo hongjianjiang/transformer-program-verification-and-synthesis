@@ -1,0 +1,5 @@
+ALPHABET: a b
+
+B1 = a
+C1 = 5
+Out = 3 = #(B1) & b

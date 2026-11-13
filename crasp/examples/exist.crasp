@@ -1,0 +1,7 @@
+ALPHABET: a b
+
+A = a
+B = b
+C1 = #A
+C2 = #B
+Out = 1 <= C2

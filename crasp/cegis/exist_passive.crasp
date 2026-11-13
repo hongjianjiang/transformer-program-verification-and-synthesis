@@ -1,0 +1,14 @@
+ALPHABET: a b
+
+B1 = a
+B2 = a
+B4 = a
+B7 = a
+C3 = 1
+B3 = B1
+B5 = B4
+B6 = #(B3) < C3
+C1 = #(B7)
+C2 = B2 ? C1 : #(B6)
+C4 = B5 ? C1 : C2
+Out = B2 | C4 <= 3

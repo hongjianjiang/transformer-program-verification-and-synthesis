@@ -1,0 +1,1 @@
+Initial smoke run stopped during mono(128) after finding repeated subtree hashing. no2a(64000) also exposed recursive dependency compilation. Both were corrected before the final rerun. These partial records are retained for provenance.

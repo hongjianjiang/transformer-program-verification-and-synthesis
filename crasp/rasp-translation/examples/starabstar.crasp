@@ -1,0 +1,6 @@
+ALPHABET: a b
+CaPre = #<(1) a
+PaPre = 1 <= CaPre
+Qab = b & PaPre
+Cab = # Qab
+L = 1 <= Cab

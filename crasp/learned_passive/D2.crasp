@@ -1,0 +1,19 @@
+ALPHABET: a b
+
+B1 = b
+B8 = a
+B9 = b
+C1 = 4
+B2 = C4 = #(b)
+B3 = B1
+B4 = B3
+B5 = !1 = C5
+B6 = !3 <= #(B5)
+B7 = B6 & B3
+B10 = B9
+C2 = #(B4)
+C3 = B8 ? C1 : C2
+C4 = B3 ? C1 : C3
+C5 = B10 ? 3 : #(B2)
+Out = B7
+

@@ -1,0 +1,12 @@
+ALPHABET: a
+
+B1 = a
+B5 = a
+C1 = 3
+B2 = !3 = C3
+B3 = B2
+B4 = B1
+C2 = B4 ? 1 : C1
+C3 = B5 ? 0 : C2
+Out = %2=1 & B3
+

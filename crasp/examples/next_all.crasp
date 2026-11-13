@@ -1,0 +1,26 @@
+ALPHABET: a b c
+
+CPa = #<(1) a
+PREDa = 1 <= CPa
+
+CPb = #<(1) b
+PREDb = 1 <= CPb
+
+CPc = #<(1) c
+PREDc = 1 <= CPc
+
+BIGRAM_aa = a & PREDa
+BIGRAM_ba = a & PREDb
+BIGRAM_ca = a & PREDc
+
+CBIGRAM_aa = #BIGRAM_aa
+CBIGRAM_ba = #BIGRAM_ba
+CBIGRAM_ca = #BIGRAM_ca
+
+EXISTS_aa = 1 <= CBIGRAM_aa
+EXISTS_ba = 1 <= CBIGRAM_ba
+EXISTS_ca = 1 <= CBIGRAM_ca
+
+NEXT_a = (a & EXISTS_aa) | (b & EXISTS_ba) | (c & EXISTS_ca)
+
+Out = 1 <= #NEXT_a

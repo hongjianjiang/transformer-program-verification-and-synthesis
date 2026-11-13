@@ -1,0 +1,15 @@
+ALPHABET: a b
+
+B1 = #(a) = 1 & #(b) < 2
+B6 = b
+C1 = 0
+C2 = 4
+C3 = 2
+C4 = 0
+C5 = 4
+C6 = 1
+B2 = B1
+B3 = B2
+B4 = B3
+B5 = B4
+Out = B5 & B6

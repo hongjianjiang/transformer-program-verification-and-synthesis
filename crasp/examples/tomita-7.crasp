@@ -1,0 +1,20 @@
+ALPHABET: a b
+
+B = b
+A = a
+
+Cb    = #B
+SeenB = 1 <= Cb
+
+AafterBpos = A & SeenB
+CAafterB   = #AafterBpos
+SeenAafterB = 1 <= CAafterB
+
+BafterAafterBpos = B & SeenAafterB
+CBAB             = #BafterAafterBpos
+SeenBAB          = 1 <= CBAB
+
+BadApos = A & SeenBAB
+CBadA   = #BadApos
+
+Out = (CBadA = 0)

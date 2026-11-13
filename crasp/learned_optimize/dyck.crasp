@@ -1,0 +1,8 @@
+ALPHABET: l r
+
+B1 = #(l) = #(r)
+C1 = 2
+C2 = 0
+B2 = r & B1
+Out = #(B1) = #(B2) & B1
+

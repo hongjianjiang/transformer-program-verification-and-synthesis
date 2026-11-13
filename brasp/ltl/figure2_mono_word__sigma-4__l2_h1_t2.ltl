@@ -1,0 +1,14 @@
+logic past-strict
+alphabet s0 s1 s2 s3
+
+is_bos := bos@i
+is_s0 := sym(s0)@i
+is_s1 := sym(s1)@i
+is_s2 := sym(s2)@i
+is_s3 := sym(s3)@i
+h1_1 := (!(((!(is_s0@i) & !(is_s1@i) & !(is_s0@j) & !(is_s1@j) & !(is_s2@j)) | (!(is_s0@j) & !(is_s2@j))))) S ((((!(is_s0@i) & !(is_s1@i) & !(is_s0@j) & !(is_s1@j) & !(is_s2@j)) | (!(is_s0@j) & !(is_s2@j))) & ((!(is_s0@i) & !(is_s1@i) & !(is_s2@j) & !(is_s3@j)) | (!(is_s1@j) & !(is_s2@j) & !(is_s3@j)))))
+h2_1 := (!(((!(is_s3@i) & !(is_s0@j) & !(is_s1@j)) | (!(is_s0@j) & !(is_s1@j) & !(is_s2@j))))) S ((((!(is_s3@i) & !(is_s0@j) & !(is_s1@j)) | (!(is_s0@j) & !(is_s1@j) & !(is_s2@j))) & (!(is_s0@i) & h1_1@i & !(is_s2@j) & !(is_s3@j))))
+accept := ((!(is_s0@i) & h1_1@i & h2_1@i) | (h1_1@i & h2_1@i))
+
+output := accept@i
+evaluate at i = |w| (the final input position)

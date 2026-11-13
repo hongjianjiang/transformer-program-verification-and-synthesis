@@ -1,0 +1,5 @@
+ALPHABET: a b
+
+B1 = 0 < #<(1,1)(a)
+C1 = 5
+Out = b & B1

@@ -1,0 +1,17 @@
+logic past-strict
+alphabet a b m
+
+is_bos := bos@i
+is_a := sym(a)@i
+is_b := sym(b)@i
+is_m := sym(m)@i
+h1_1 := (!(true)) S ((true & !(is_m@j)))
+h1_2_seen := (!((is_a@j & is_b@j & is_bos@j & is_m@j))) S (((is_a@j & is_b@j & is_bos@j & is_m@j) & true))
+h1_2_first := (!(h1_2_seen@i) & is_a@i & is_b@i & is_bos@i & is_m@i)
+h1_2_at := (!(h1_2_first@j)) S ((h1_2_first@j & (is_bos@i & is_a@i & is_b@i & is_m@i & is_bos@j & is_a@j & is_b@j & is_m@j)))
+h1_2 := (h1_2_at@i & is_a@i & is_b@i & is_bos@i & is_m@i)
+h2_1 := (!((!(h1_2@i) & !(is_bos@j) & !(h1_2@j)))) S (((!(h1_2@i) & !(is_bos@j) & !(h1_2@j)) & (!(h1_2@i) & !(is_bos@j) & !(is_a@j) & !(is_b@j) & is_m@j & !(h1_2@j))))
+accept := (!(is_bos@i) & !(is_m@i) & !(h1_1@i) & h2_1@i)
+
+output := accept@i
+evaluate at i = |w| (the final input position)

@@ -1,0 +1,31 @@
+ALPHABET: a b c d e
+
+Pa = a
+Pb = b
+Pc = c
+Pd = d
+Pe = e
+
+PEa = C1 <= CEa
+PEb = C1 <= CEb
+PEc = C1 <= CEc
+PEd = C1 <= CEd
+PEe = C1 <= CEe
+
+/**
+ * I think this is not correct: it does not enforce .*a.*b.*c.*d.*e.*
+ * but that a, b, c, d, e appear in any order.
+ */
+L1 = PEa
+L2 = PEb & L1
+L3 = PEc & L2
+L4 = PEd & L3
+L = PEe & L4
+
+C1 = 1
+CEa = #Pa
+CEb = #Pb
+CEc = #Pc
+CEd = #Pd
+CEe = #Pe
+

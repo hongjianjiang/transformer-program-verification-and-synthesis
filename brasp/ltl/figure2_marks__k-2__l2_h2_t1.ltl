@@ -1,0 +1,20 @@
+logic past-strict
+alphabet a m
+
+is_bos := bos@i
+is_a := sym(a)@i
+is_m := sym(m)@i
+h1_1 := (!((is_bos@i & is_a@i & !(is_m@i) & is_bos@j & is_a@j & is_m@j))) S (((is_bos@i & is_a@i & !(is_m@i) & is_bos@j & is_a@j & is_m@j) & (is_bos@i & is_a@i & is_bos@j & is_a@j & !(is_m@j))))
+h1_2_seen := (!((!(is_a@j) & !(is_bos@j) & is_m@j))) S (((!(is_a@j) & !(is_bos@j) & is_m@j) & true))
+h1_2_first := (!(h1_2_seen@i) & !(is_a@i) & !(is_bos@i) & is_m@i)
+h1_2_at := (!(h1_2_first@j)) S ((h1_2_first@j & true))
+h1_2 := h1_2_at@i
+h2_1 := (!((is_a@i & !(h1_1@i) & !(h1_2@i) & !(is_bos@j) & is_a@j & !(is_m@j) & !(h1_1@j) & !(h1_2@j)))) S (((is_a@i & !(h1_1@i) & !(h1_2@i) & !(is_bos@j) & is_a@j & !(is_m@j) & !(h1_1@j) & !(h1_2@j)) & (is_a@i & !(h1_2@i) & is_a@j)))
+h2_2_seen := (!((!(h1_2@j) & !(is_bos@j) & is_a@j))) S (((!(h1_2@j) & !(is_bos@j) & is_a@j) & true))
+h2_2_first := (!(h1_2@i) & !(h2_2_seen@i) & !(is_bos@i) & is_a@i)
+h2_2_at := (!(h2_2_first@j)) S ((h2_2_first@j & (!(h1_2@i) & !(is_bos@j) & is_a@j & !(is_m@j) & !(h1_1@j))))
+h2_2 := (!(h1_1@i) & !(h1_2@i) & h2_2_at@i)
+accept := (!(is_bos@i) & !(h1_1@i) & h1_2@i & !(h2_1@i) & !(h2_2@i))
+
+output := accept@i
+evaluate at i = |w| (the final input position)

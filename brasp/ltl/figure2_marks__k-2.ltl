@@ -1,0 +1,12 @@
+logic past-strict
+alphabet a m
+
+is_m := sym(m)@i
+h_1 := is_m@i
+p_2 := (!(is_m@j)) S ((is_m@j & h_1@j))
+h_2 := (is_m@i & p_2@i)
+seen_2 := (!(h_2@j)) S ((h_2@j & true))
+accept := (h_2@i | seen_2@i)
+
+output := accept@i
+evaluate at i = |w| (the final input position)

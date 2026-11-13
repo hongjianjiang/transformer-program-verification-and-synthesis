@@ -1,0 +1,53 @@
+ALPHABET: a b c d e f g h i j
+
+A = a
+B = b
+C = c
+D = d
+E = e
+F = f
+G = g
+H = h
+I = i
+J = j
+
+CA = #A
+L1 = 1 <= CA
+
+QB = B & L1
+CB = #QB
+L2 = 1 <= CB
+
+QC = C & L2
+CC = #QC
+L3 = 1 <= CC
+
+QD = D & L3
+CD = #QD
+L4 = 1 <= CD
+
+QE = E & L4
+CE = #QE
+L5 = 1 <= CE
+
+QF = F & L5
+CF = #QF
+L6 = 1 <= CF
+
+QG = G & L6
+CG = #QG
+L7 = 1 <= CG
+
+QH = H & L7
+CH = #QH
+L8 = 1 <= CH
+
+QI = I & L8
+CI = #QI
+L9 = 1 <= CI
+
+QJ = J & L9
+CJ = #QJ
+L10 = 1 <= CJ
+
+Out = L10

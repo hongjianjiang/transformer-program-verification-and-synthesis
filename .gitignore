@@ -1,0 +1,39 @@
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Scala / sbt build output
+target/
+.bloop/
+.bsp/
+.metals/
+project/project/
+
+# Scratch output from solver runs
+*.history
+cnf.dimacs*
+brasp/tmp/
+crasp/run_log.txt
+
+# Experiment results: keep summaries (tables, plots, reports) only.
+# Raw logs, generated inputs and per-instance JSON go to the Zenodo archive.
+brasp/results/**
+!brasp/results/**/
+!brasp/results/**/*.csv
+!brasp/results/**/*.md
+!brasp/results/**/*.png
+!brasp/results/**/*.pdf
+!brasp/results/**/*.tex
+!brasp/results/**/*.sh
+brasp/results/**/logs/
+brasp/results/**/inputs/
+
+# Unrelated paper draft (not part of the tool)
+brasp/circuit/

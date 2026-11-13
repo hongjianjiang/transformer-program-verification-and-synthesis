@@ -1,0 +1,5 @@
+ALPHABET: l r
+
+B1 = #(l) = #(r)
+B2 = r & B1
+Out = #(B1) = #(B2) & B1

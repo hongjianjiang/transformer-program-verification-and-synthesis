@@ -1,0 +1,13 @@
+ALPHABET: l r
+
+L = l
+R = r
+V = CL < CR
+M = CV = C0
+B = CL = CR
+Out = M & B
+
+CL = #l
+CR = #r
+CV = #V
+C0 = 0

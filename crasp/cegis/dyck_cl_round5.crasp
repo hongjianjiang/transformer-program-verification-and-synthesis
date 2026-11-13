@@ -1,0 +1,5 @@
+ALPHABET: l r
+
+B1 = r & 0 < #(%2=1)
+C1 = 2
+Out = r & #(B1) = #(l)

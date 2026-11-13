@@ -1,0 +1,18 @@
+ALPHABET: a b c
+
+A = a
+B = b
+C = c
+
+CA = #A
+L1 = 1 <= CA
+
+QB = B & L1
+CB = #QB
+L2 = 1 <= CB 
+
+QC = C & L2
+CC = #QC
+L3 = 1 <= CC  
+
+Out = L3

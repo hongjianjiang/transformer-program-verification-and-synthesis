@@ -59,10 +59,14 @@ def parser():
         evaluate = actions.add_parser('eval', help='evaluate a concrete word')
         evaluate.add_argument('input', type=absolute)
         evaluate.add_argument('word', help='quote the empty word as ""')
+        score = actions.add_parser('score', help='accuracy of a program on a +,word / -,word dataset')
+        score.add_argument('input', type=absolute)
+        score.add_argument('data', type=absolute)
+        score.add_argument('--json', action='store_true', help='print a JSON summary instead of text')
         translate = actions.add_parser('translate', help='translate to LTL (B-RASP) or Lustre (C-RASP)')
         translate.add_argument('input', type=absolute)
         if language == 'crasp':
-            for command in (evaluate, translate):
+            for command in (evaluate, score, translate):
                 command.add_argument('--output-rule', default='Out')
         verify = actions.add_parser('verify', help='verify a property using ABC or Kind2')
         relations = ['empty', 'equivalent', 'subset'] if language == 'brasp' else ['check', 'equivalent', 'subset', 'disjoint']
@@ -128,6 +132,66 @@ def learn_command(args):
         return java('brasp', 'brasp.synthesis.RunSynthesis', options)
     return java('crasp', 'cli.DatasetLearning', [args.data, args.alphabet, args.out, args.seed,
                 args.iters, args.restarts, args.bools, args.counts])
+
+
+def read_dataset(path):
+    """Parse +,word / -,word lines (the learners' format) into (word, label)."""
+    rows = []
+    for number, raw in enumerate(Path(path).read_text().splitlines(), 1):
+        line = raw.strip()
+        if not line:
+            continue
+        if line[:2] not in ('+,', '-,'):
+            raise ValueError(f'{path}:{number}: expected +,word or -,word')
+        rows.append((line[2:].strip(), line[0] == '+'))
+    return rows
+
+
+def summarize_scores(rows, predictions):
+    """Accuracy overall and per length bucket (powers of two)."""
+    if len(rows) != len(predictions):
+        raise RuntimeError(f'evaluator returned {len(predictions)} answers for {len(rows)} words')
+    buckets = {}
+    for (word, label), predicted in zip(rows, predictions):
+        n = len(word)
+        key = '0' if n == 0 else f'{1 << (n.bit_length() - 1)}-{(1 << n.bit_length()) - 1}'
+        total, correct = buckets.get(key, (0, 0))
+        buckets[key] = (total + 1, correct + (predicted == label))
+    correct = sum(c for _, c in buckets.values())
+    order = sorted(buckets, key=lambda k: int(k.split('-')[0]))
+    return {'words': len(rows), 'correct': correct, 'accuracy': correct / len(rows) if rows else 1.0,
+            'false_positives': sum(1 for (_, y), p in zip(rows, predictions) if p and not y),
+            'false_negatives': sum(1 for (_, y), p in zip(rows, predictions) if y and not p),
+            'by_length': {k: {'words': buckets[k][0], 'accuracy': buckets[k][1] / buckets[k][0]} for k in order}}
+
+
+def score_dataset(args):
+    rows = read_dataset(args.data)
+    with tempfile.NamedTemporaryFile('w', suffix='.txt', delete=False) as handle:
+        handle.write(''.join(word + '\n' for word, _ in rows))
+        words_file = handle.name
+    try:
+        if args.action == 'brasp':
+            command = java('brasp', 'brasp.synthesis.EvaluateWords', [args.input, words_file])
+        else:
+            command = java('crasp', 'cli.EvaluateWords', [args.input, args.output_rule, words_file])
+        result = subprocess.run(command, cwd=ROOT / args.action, stdout=subprocess.PIPE, stderr=sys.stderr, text=True)
+    finally:
+        os.unlink(words_file)
+    if result.returncode:
+        raise RuntimeError(f'evaluator failed (exit {result.returncode})')
+    answers = result.stdout.split()
+    if any(a not in ('true', 'false') for a in answers):
+        raise RuntimeError('evaluator printed something other than true/false')
+    summary = summarize_scores(rows, [a == 'true' for a in answers])
+    if args.json:
+        print(json.dumps(summary))
+    else:
+        print(f"accuracy {summary['accuracy']:.4f} ({summary['correct']}/{summary['words']}), "
+              f"FP {summary['false_positives']}, FN {summary['false_negatives']}")
+        for key, bucket in summary['by_length'].items():
+            print(f"  len {key:>9}: {bucket['accuracy']:.4f} ({bucket['words']})")
+    return 0
 
 
 def classify_abc(code, text):
@@ -231,6 +295,8 @@ def main(argv=None):
             command = java(language, 'brasp.Translator', [args.input, '--word', args.word]) if language == 'brasp' else \
                 java(language, 'cli.Evaluate', [args.input, args.output_rule, args.word])
             return subprocess.run(command, cwd=ROOT / language).returncode
+        if args.operation == 'score':
+            return score_dataset(args)
         if args.operation == 'translate':
             if language == 'brasp':
                 return subprocess.run(java(language, 'brasp.Translator', [args.input, '--ltl']), cwd=ROOT / language).returncode

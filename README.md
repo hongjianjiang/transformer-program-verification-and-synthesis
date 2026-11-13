@@ -54,7 +54,17 @@ A perfect sample fit is **not** a proof of equivalence.
 ./rasp crasp translate /tmp/contains_a.crasp > /tmp/contains_a.lus
 ```
 
-C-RASP `eval` and `translate` accept `--output-rule NAME` (default `Out`).
+To measure accuracy on a whole dataset (same `+,word` format; one JVM start),
+use `score`, which reports overall and per-length accuracy (`--json` for
+machine-readable output):
+
+```sh
+./rasp brasp score /tmp/contains_a.brasp brasp/examples/synthesis/contains_a.csv
+```
+
+Learning benchmarks (FLaRe) live in [`benchmarks/learning/`](benchmarks/learning/README.md).
+
+C-RASP `eval`, `score` and `translate` accept `--output-rule NAME` (default `Out`).
 Evaluation uses each learner's existing semantics: B-RASP inserts BOS and can
 accept the empty word; C-RASP uses `classifyWith` at the last ordinary position,
 adds no EOS, and rejects the empty word. Its formal Lustre translation retains

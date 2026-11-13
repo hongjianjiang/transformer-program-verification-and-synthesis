@@ -44,6 +44,24 @@ class CliTests(unittest.TestCase):
         self.assertEqual(rasp.classify_kind2(1, xml('valid')), ('UNKNOWN', 3))
         self.assertEqual(rasp.classify_kind2(0, '<Results><Property isCandidate="true"><Answer>valid</Answer></Property></Results>'), ('UNKNOWN', 3))
 
+    def test_score_summary_counts_errors_and_length_buckets(self):
+        rows = [('', True), ('a', False), ('ab', True), ('abc', True), ('abcd', False)]
+        summary = rasp.summarize_scores(rows, [True, True, True, False, False])
+        self.assertEqual((summary['correct'], summary['false_positives'], summary['false_negatives']), (3, 1, 1))
+        self.assertEqual(list(summary['by_length']), ['0', '1-1', '2-3', '4-7'])
+        self.assertEqual(summary['by_length']['2-3'], {'words': 2, 'accuracy': 0.5})
+        with self.assertRaises(RuntimeError):
+            rasp.summarize_scores(rows, [True])
+
+    def test_dataset_reader_keeps_empty_word_and_rejects_bad_lines(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'd.csv'
+            path.write_text('+,\n\n-,ab\n')
+            self.assertEqual(rasp.read_dataset(path), [('', True), ('ab', False)])
+            path.write_text('ab\n')
+            with self.assertRaises(ValueError):
+                rasp.read_dataset(path)
+
     def test_exit_code_from_learner_is_preserved(self):
         with patch.object(rasp, 'learn_command', return_value=['java', 'learner']), \
              patch.object(rasp.subprocess, 'run') as run:

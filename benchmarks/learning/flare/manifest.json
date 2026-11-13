@@ -1,0 +1,952 @@
+{
+  "source": "https://github.com/rycolab/flare.git",
+  "commit": "a671eb9932620cc888757612f30845efe3304831",
+  "license": "MIT",
+  "languages": {
+    "binary-addition": {
+      "chomsky": "CS",
+      "star_free": null,
+      "alphabet": "a,b,c,d",
+      "splits": {
+        "train": {
+          "file": "train.csv",
+          "words": 10000,
+          "positive": 4929,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "7f7dbe33a8e9fcbe875bd03f7b068527ce4d614dd47a7e565842ccf5b5531e33"
+        },
+        "test": {
+          "file": "test.csv",
+          "words": 5010,
+          "positive": 2470,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 500,
+          "sha256": "3b509d85e47bbe5f09260e414272639f5ba318f813d441763b8b042a65ac689c"
+        },
+        "test-short-held-out": {
+          "file": "test-short-held-out.csv",
+          "words": 1000,
+          "positive": 505,
+          "empty_positive": 0,
+          "min_len": 3,
+          "max_len": 40,
+          "sha256": "6aba1058380f7800b46e635ea3168b032a0d17f7a3a679cc2a2e73ece4edab48"
+        },
+        "validation-long": {
+          "file": "validation-long.csv",
+          "words": 1000,
+          "positive": 458,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 80,
+          "sha256": "b7e3346d8a7206d4e15be7f3782503d1a267f0870ad57e67dcc11eb13e159c4a"
+        },
+        "validation-short": {
+          "file": "validation-short.csv",
+          "words": 1000,
+          "positive": 500,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "4731b45742dcae05df7a5d53cbfc4391843141898a8c5de277337975a2c0a353"
+        }
+      }
+    },
+    "binary-multiplication": {
+      "chomsky": "CS",
+      "star_free": null,
+      "alphabet": "a,b,c,d",
+      "splits": {
+        "train": {
+          "file": "train.csv",
+          "words": 10000,
+          "positive": 4943,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "715d65b33b2aa1f7c8ef32dccf44656b9fb343719bfc58f65251bd9d78738516"
+        },
+        "test": {
+          "file": "test.csv",
+          "words": 5010,
+          "positive": 2472,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 500,
+          "sha256": "f39685d45244e4abdabb5727c3b233ebd09311d796072dff37b2f623c0e352df"
+        },
+        "test-short-held-out": {
+          "file": "test-short-held-out.csv",
+          "words": 1000,
+          "positive": 509,
+          "empty_positive": 0,
+          "min_len": 3,
+          "max_len": 40,
+          "sha256": "3d1dcce370ecef7ffcc1a1f4d984283e0b4024f7a15ab8f224d177617c355643"
+        },
+        "validation-long": {
+          "file": "validation-long.csv",
+          "words": 1000,
+          "positive": 469,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 80,
+          "sha256": "9369773ffc984fde9fca34bcbab9436b27f0437d6a8d513d332f25441374af47"
+        },
+        "validation-short": {
+          "file": "validation-short.csv",
+          "words": 1000,
+          "positive": 495,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "ea1331ddc4b6dc53f68b81d95bb503c402d1575e38e9201ded5981f994b302c8"
+        }
+      }
+    },
+    "bucket-sort": {
+      "chomsky": "CS",
+      "star_free": null,
+      "alphabet": "a,b,c,d,e,f",
+      "splits": {
+        "train": {
+          "file": "train.csv",
+          "words": 10000,
+          "positive": 5046,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "26795596991f12a2b3a7a3cd209b1a651ca887abe4ac4a5d9853d77208664889"
+        },
+        "test": {
+          "file": "test.csv",
+          "words": 5010,
+          "positive": 2519,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 500,
+          "sha256": "c1ded698d9bf5d282932a2bb632f0b4d504a61d8f21c091c5c7355428d5cba2a"
+        },
+        "test-short-held-out": {
+          "file": "test-short-held-out.csv",
+          "words": 1000,
+          "positive": 494,
+          "empty_positive": 0,
+          "min_len": 2,
+          "max_len": 40,
+          "sha256": "ae22e41944223c9965792bb30e5ef41fccdbbc54b8dd649b7c386c27f8f030d9"
+        },
+        "validation-long": {
+          "file": "validation-long.csv",
+          "words": 1000,
+          "positive": 496,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 80,
+          "sha256": "a7ac68f2d360c7013c2299f010eaaeb962f90ba63da362070fcf55cc71ca267c"
+        },
+        "validation-short": {
+          "file": "validation-short.csv",
+          "words": 1000,
+          "positive": 525,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "ca01bf0a2d4492e1bd6f93dc81c5a7e82c20788632dc60e596b8fa99c66c1b4d"
+        }
+      }
+    },
+    "compute-sqrt": {
+      "chomsky": "CS",
+      "star_free": null,
+      "alphabet": "a,b,c",
+      "splits": {
+        "train": {
+          "file": "train.csv",
+          "words": 10000,
+          "positive": 5077,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "33093cee9823286dd1284511adf246de43038719bcc4f54cfaadd12eef63c1a9"
+        },
+        "test": {
+          "file": "test.csv",
+          "words": 5010,
+          "positive": 2523,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 500,
+          "sha256": "5182e6784a4de00bc8030b4a9f3d098632fb807a3cf898dba433de281c3209a4"
+        },
+        "test-short-held-out": {
+          "file": "test-short-held-out.csv",
+          "words": 1000,
+          "positive": 494,
+          "empty_positive": 0,
+          "min_len": 4,
+          "max_len": 40,
+          "sha256": "0baf76038f36c9fa718ca5b596076e3adcb94dfbbeb04e80c321ed9476c41d5a"
+        },
+        "validation-long": {
+          "file": "validation-long.csv",
+          "words": 1000,
+          "positive": 501,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 80,
+          "sha256": "ae42b9689dd7f2b343980c8e36dce2b4db1a9c508eb1226f007c658b4ad5d42c"
+        },
+        "validation-short": {
+          "file": "validation-short.csv",
+          "words": 1000,
+          "positive": 508,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "26a2eeae9b71372624d9003d135bd787ef1d3e5d4233cd3babd63191b75786b1"
+        }
+      }
+    },
+    "cycle-navigation": {
+      "chomsky": "R",
+      "star_free": false,
+      "alphabet": "a,b,c,d,e,f,g,h",
+      "splits": {
+        "train": {
+          "file": "train.csv",
+          "words": 10000,
+          "positive": 5002,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "52040510d9405c4e3bc21b716513349b5d34d0479b411f8373a03c4e020b0885"
+        },
+        "test": {
+          "file": "test.csv",
+          "words": 5010,
+          "positive": 2518,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 500,
+          "sha256": "976a1b348171df9ec2d1d007c08985cf86f8076a799d1fec698967aa7aa9732c"
+        },
+        "test-short-held-out": {
+          "file": "test-short-held-out.csv",
+          "words": 1000,
+          "positive": 524,
+          "empty_positive": 0,
+          "min_len": 2,
+          "max_len": 40,
+          "sha256": "8aba01e1bdbe06b4c9c6cc2dedbd45d4b8caf7660c718475bbe185774e3edb8a"
+        },
+        "validation-long": {
+          "file": "validation-long.csv",
+          "words": 1000,
+          "positive": 494,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 80,
+          "sha256": "4be7497e636e8f059af54c8458988ead421bf267e2bd68bdab19b57ae949a5be"
+        },
+        "validation-short": {
+          "file": "validation-short.csv",
+          "words": 1000,
+          "positive": 511,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "3bc1c0ea716e870a603ad34168b057e84e7461d84e9420ea717a3d12fd3162fd"
+        }
+      }
+    },
+    "dyck-2-3": {
+      "chomsky": "DCF",
+      "star_free": null,
+      "alphabet": "a,b,c,d",
+      "splits": {
+        "train": {
+          "file": "train.csv",
+          "words": 10000,
+          "positive": 5061,
+          "empty_positive": 232,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "6a90f46d9a515fd44b9bcf0b35ab3dde617ee465be9cd54305fe7958cd465fbb"
+        },
+        "test": {
+          "file": "test.csv",
+          "words": 5010,
+          "positive": 2465,
+          "empty_positive": 10,
+          "min_len": 0,
+          "max_len": 500,
+          "sha256": "b08e9f2074d073ffdc1c4d9bd4d4db4f35e139755f0c81e1f56862f5e9d69182"
+        },
+        "test-edit-distance": {
+          "file": "test-edit-distance.csv",
+          "words": 50,
+          "positive": 0,
+          "empty_positive": 0,
+          "min_len": 16,
+          "max_len": 493,
+          "sha256": "a0cf6e6250b9c13ec10653694571fae726f90672bcd86b4275b89d3acc84abfd"
+        },
+        "test-short-held-out": {
+          "file": "test-short-held-out.csv",
+          "words": 1000,
+          "positive": 492,
+          "empty_positive": 0,
+          "min_len": 3,
+          "max_len": 40,
+          "sha256": "2594ec9edb3c6964a7c2a62dc4635ac063b778613a9b751d8c214f569571742f"
+        },
+        "validation-long": {
+          "file": "validation-long.csv",
+          "words": 1000,
+          "positive": 505,
+          "empty_positive": 6,
+          "min_len": 0,
+          "max_len": 80,
+          "sha256": "0826b54ec33390e1c1b130d4ca2bef68c19dda504f7f3d31c465e89bc2e45d4a"
+        },
+        "validation-short": {
+          "file": "validation-short.csv",
+          "words": 1000,
+          "positive": 497,
+          "empty_positive": 20,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "daf2a92cb3d97a485b705ea652664d2057c6140ea292eca05a50997bb43a7fb4"
+        }
+      }
+    },
+    "even-pairs": {
+      "chomsky": "R",
+      "star_free": true,
+      "alphabet": "a,b",
+      "splits": {
+        "train": {
+          "file": "train.csv",
+          "words": 10000,
+          "positive": 4957,
+          "empty_positive": 112,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "47b87edf1d1a3df4ae07f09639d56102c1311c06c7666429bc3caa688a6ed279"
+        },
+        "test": {
+          "file": "test.csv",
+          "words": 5010,
+          "positive": 2433,
+          "empty_positive": 7,
+          "min_len": 0,
+          "max_len": 500,
+          "sha256": "39f7b5f29f498f701ef4fb4c2d685e8ecfaedd240f05978f58d101edb4ee6dfd"
+        },
+        "test-short-held-out": {
+          "file": "test-short-held-out.csv",
+          "words": 1000,
+          "positive": 486,
+          "empty_positive": 0,
+          "min_len": 5,
+          "max_len": 40,
+          "sha256": "84f43f39af3c6a8e67e808497718d10cc1ac88749777d6386c08a53d03974896"
+        },
+        "validation-long": {
+          "file": "validation-long.csv",
+          "words": 1000,
+          "positive": 487,
+          "empty_positive": 4,
+          "min_len": 0,
+          "max_len": 80,
+          "sha256": "e4ed60285923fb200deffc547b836aaa7f8eb8f6730657eabc1e085e3c821d97"
+        },
+        "validation-short": {
+          "file": "validation-short.csv",
+          "words": 1000,
+          "positive": 494,
+          "empty_positive": 13,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "667c6fc66779f25600f85c65f54ca18ffa7814ef3e5e7f7b9c3e051a6382655f"
+        }
+      }
+    },
+    "first": {
+      "chomsky": "R",
+      "star_free": true,
+      "alphabet": "a,b",
+      "splits": {
+        "train": {
+          "file": "train.csv",
+          "words": 10000,
+          "positive": 4924,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "3b2752d7d328777e1aecffbe3ae1825f15f5d2659b32e547785188627ac31f14"
+        },
+        "test": {
+          "file": "test.csv",
+          "words": 5010,
+          "positive": 2493,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 500,
+          "sha256": "5889bd9d6c4e1a05a1f42aca4990b2c2abe9fe82f738cae640810e22977e2bee"
+        },
+        "test-short-held-out": {
+          "file": "test-short-held-out.csv",
+          "words": 1000,
+          "positive": 508,
+          "empty_positive": 0,
+          "min_len": 7,
+          "max_len": 40,
+          "sha256": "bbb4c2c5e424779bdd15fbe1199cbc23fa90fd8892808cdd490c0fd08cee675c"
+        },
+        "validation-long": {
+          "file": "validation-long.csv",
+          "words": 1000,
+          "positive": 501,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 80,
+          "sha256": "2f61d91f5ffa182fa35a93ef60001cb36b582f3c8b71acde9ded93976245bd87"
+        },
+        "validation-short": {
+          "file": "validation-short.csv",
+          "words": 1000,
+          "positive": 495,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "69187f6fc3d4399ec9839ae7b3a47ce987f43004d28c2317f02fd2e92f62582a"
+        }
+      }
+    },
+    "majority": {
+      "chomsky": "DCF",
+      "star_free": null,
+      "alphabet": "a,b",
+      "splits": {
+        "train": {
+          "file": "train.csv",
+          "words": 10000,
+          "positive": 5039,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "2f39da677d6605b3ac4e2a9603028e6296fdbd6f1972ecc835b699bf4dab3b2b"
+        },
+        "test": {
+          "file": "test.csv",
+          "words": 5010,
+          "positive": 2523,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 500,
+          "sha256": "33885e890c1c74bb185b1370ace8f7c59c60e5ee75879b822fe81b03912eea7a"
+        },
+        "test-short-held-out": {
+          "file": "test-short-held-out.csv",
+          "words": 1000,
+          "positive": 486,
+          "empty_positive": 0,
+          "min_len": 6,
+          "max_len": 40,
+          "sha256": "841b175c4c003fd0708e073b16e8286f1635d963e0e627207c0503528b6b10a5"
+        },
+        "validation-long": {
+          "file": "validation-long.csv",
+          "words": 1000,
+          "positive": 486,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 80,
+          "sha256": "d1f03083edb4e1dcfff67180396110001c7aa494b4f9c15e08011682c0ad515a"
+        },
+        "validation-short": {
+          "file": "validation-short.csv",
+          "words": 1000,
+          "positive": 506,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "f35547e5d700584ac41f21b00b04615aed0193359cf6291ddfadf51e37db175c"
+        }
+      }
+    },
+    "marked-copy": {
+      "chomsky": "CS",
+      "star_free": null,
+      "alphabet": "a,b,c",
+      "splits": {
+        "train": {
+          "file": "train.csv",
+          "words": 10000,
+          "positive": 4995,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "2b0418b5bcacbb5eb5f138bc06ae65c9c98fd16c4cc100d527e7d3c571fb603b"
+        },
+        "test": {
+          "file": "test.csv",
+          "words": 5010,
+          "positive": 2492,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 500,
+          "sha256": "c8f5e9a6833c83663c8cbdb0651ded6f2ac198cffab79d56084287c82db0e135"
+        },
+        "test-short-held-out": {
+          "file": "test-short-held-out.csv",
+          "words": 1000,
+          "positive": 494,
+          "empty_positive": 0,
+          "min_len": 4,
+          "max_len": 40,
+          "sha256": "2d2b5016795fc62865757c820621b0920353a5feaedcfaf9d39ef9ccdab01ef7"
+        },
+        "validation-long": {
+          "file": "validation-long.csv",
+          "words": 1000,
+          "positive": 499,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 80,
+          "sha256": "5d7ab0554b908b2756da8f689268a78b5bd82732d8d1f81f2c5cf66a6126a01e"
+        },
+        "validation-short": {
+          "file": "validation-short.csv",
+          "words": 1000,
+          "positive": 488,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "9731fa7c44b9ed301a7f7cff9dee82c412ca9cb1200396d4e7cd184db58f4d55"
+        }
+      }
+    },
+    "marked-reversal": {
+      "chomsky": "DCF",
+      "star_free": null,
+      "alphabet": "a,b,c",
+      "splits": {
+        "train": {
+          "file": "train.csv",
+          "words": 10000,
+          "positive": 5012,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "f1fda205bd67b4b47b9a49715bea66b58cc6c9e7993844184656a31e0be1ab05"
+        },
+        "test": {
+          "file": "test.csv",
+          "words": 5010,
+          "positive": 2534,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 500,
+          "sha256": "413996bebc27b1cb55b2d77dc0fe56ae0c2ba247f5287822ddbc7249ee74c230"
+        },
+        "test-short-held-out": {
+          "file": "test-short-held-out.csv",
+          "words": 1000,
+          "positive": 460,
+          "empty_positive": 0,
+          "min_len": 4,
+          "max_len": 40,
+          "sha256": "4fdb91e894105c72a4f8dec8238f662e614c34120fad496556f07885f0a600ea"
+        },
+        "validation-long": {
+          "file": "validation-long.csv",
+          "words": 1000,
+          "positive": 490,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 80,
+          "sha256": "ff48e32832884b2c9a91b31fb7bed6ccad9925a3c2cdddbefe0f3535f595a8fa"
+        },
+        "validation-short": {
+          "file": "validation-short.csv",
+          "words": 1000,
+          "positive": 497,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "964725471496b242695bfd698b227083c2d5af8ff88ff9b9121396de25e67c68"
+        }
+      }
+    },
+    "missing-duplicate-string": {
+      "chomsky": "CS",
+      "star_free": null,
+      "alphabet": "a,b,c",
+      "splits": {
+        "train": {
+          "file": "train.csv",
+          "words": 10000,
+          "positive": 5098,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "979545eba41a9ce39eac7765241a9ad8b665a5df8062e4de775426cc23eb9b57"
+        },
+        "test": {
+          "file": "test.csv",
+          "words": 5010,
+          "positive": 2472,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 500,
+          "sha256": "6f6bdb95a566bda807b2c75675d9e68fd629973fbea8e99e46227bd9cb48fef0"
+        },
+        "test-short-held-out": {
+          "file": "test-short-held-out.csv",
+          "words": 1000,
+          "positive": 528,
+          "empty_positive": 0,
+          "min_len": 4,
+          "max_len": 40,
+          "sha256": "9a9be300bf7d0043ada89c56fd0ea548cc67a85dd83db92c06b9e1087769cbd8"
+        },
+        "validation-long": {
+          "file": "validation-long.csv",
+          "words": 1000,
+          "positive": 517,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 80,
+          "sha256": "8988921b1c8d8b2436cfcaae51912ec027beb0ae21221bd508d87d63cf716007"
+        },
+        "validation-short": {
+          "file": "validation-short.csv",
+          "words": 1000,
+          "positive": 510,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "90ddf5acbb79d94dfa00f3e374e4400927c7b081d85b8f1d6b2493cd1e4c0095"
+        }
+      }
+    },
+    "modular-arithmetic-simple": {
+      "chomsky": "R",
+      "star_free": false,
+      "alphabet": "a,b,c,d,e,f,g,h,i",
+      "splits": {
+        "train": {
+          "file": "train.csv",
+          "words": 10000,
+          "positive": 5101,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "aa7db10ae2a9cdf5de6d1c369cd0dff00cd73cabd9a69c3be2dae1bb173f3580"
+        },
+        "test": {
+          "file": "test.csv",
+          "words": 5010,
+          "positive": 2527,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 500,
+          "sha256": "5d1c906ca8445661cbd62dd3b2773f3660ca37182e09ffea723d3f231b555852"
+        },
+        "test-short-held-out": {
+          "file": "test-short-held-out.csv",
+          "words": 1000,
+          "positive": 499,
+          "empty_positive": 0,
+          "min_len": 2,
+          "max_len": 40,
+          "sha256": "69e88a14864c6bc99de191e298e6cba42519c59d2300c7dba458fa0bb2722fc9"
+        },
+        "validation-long": {
+          "file": "validation-long.csv",
+          "words": 1000,
+          "positive": 524,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 80,
+          "sha256": "0d1056d542cbe5ba1c11a90d0f002cebd54d9b3f7529f6bdd22aba32782f0226"
+        },
+        "validation-short": {
+          "file": "validation-short.csv",
+          "words": 1000,
+          "positive": 511,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "c7f4174fda8f7d96e7ba458a56cf096f4c4d6a7c78c98481e5c8b9b625d91c30"
+        }
+      }
+    },
+    "odds-first": {
+      "chomsky": "CS",
+      "star_free": null,
+      "alphabet": "a,b,c",
+      "splits": {
+        "train": {
+          "file": "train.csv",
+          "words": 10000,
+          "positive": 5000,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "3bc4d0feb547632f518fb023100ffde4e8a36504d08e981c43940dd6d235a509"
+        },
+        "test": {
+          "file": "test.csv",
+          "words": 5010,
+          "positive": 2530,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 500,
+          "sha256": "08e3326599f55a27adf595e20a2d13cef32e22e1f5dee55bdd00878f730be51f"
+        },
+        "test-short-held-out": {
+          "file": "test-short-held-out.csv",
+          "words": 1000,
+          "positive": 469,
+          "empty_positive": 0,
+          "min_len": 4,
+          "max_len": 40,
+          "sha256": "24913bc8ab5b965858a9c66f262eecba6c0632d4e03543d7168d5e9e5f426875"
+        },
+        "validation-long": {
+          "file": "validation-long.csv",
+          "words": 1000,
+          "positive": 486,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 80,
+          "sha256": "af0edbce28bd9e34b5cf34e67b34a3a4d3fdf643d84ac1fab82e7fde343469e2"
+        },
+        "validation-short": {
+          "file": "validation-short.csv",
+          "words": 1000,
+          "positive": 493,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "46f36a7df8ef0285383cc5ea42bf6fa9d57fadc003a2246c1746f9ad9054c80f"
+        }
+      }
+    },
+    "parity": {
+      "chomsky": "R",
+      "star_free": false,
+      "alphabet": "a,b",
+      "splits": {
+        "train": {
+          "file": "train.csv",
+          "words": 10000,
+          "positive": 4989,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "a3915fdc14e22af044581b54c87a696149b16c81cceaf07b7e8d703fadb7f059"
+        },
+        "test": {
+          "file": "test.csv",
+          "words": 5010,
+          "positive": 2474,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 500,
+          "sha256": "5a17d56db23aa9d6cad1d7648127fd22e7a057993095c6d4d79954397522e49f"
+        },
+        "test-short-held-out": {
+          "file": "test-short-held-out.csv",
+          "words": 1000,
+          "positive": 502,
+          "empty_positive": 0,
+          "min_len": 6,
+          "max_len": 40,
+          "sha256": "b05e756c7ddd157ee3b71e1b1dfd288a1d4092b4de25124a0abf5e69f70db18d"
+        },
+        "validation-long": {
+          "file": "validation-long.csv",
+          "words": 1000,
+          "positive": 498,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 80,
+          "sha256": "94bdcf7c61cd566edd90ab98845630b69907f11beae2d1752ccef9abfc198e14"
+        },
+        "validation-short": {
+          "file": "validation-short.csv",
+          "words": 1000,
+          "positive": 495,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "f73fba3c34b0968d5449f7375e78c862114709a0dec55cde50b5061815d22741"
+        }
+      }
+    },
+    "repeat-01": {
+      "chomsky": "R",
+      "star_free": true,
+      "alphabet": "a,b",
+      "splits": {
+        "train": {
+          "file": "train.csv",
+          "words": 10000,
+          "positive": 5026,
+          "empty_positive": 260,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "538590ed9a767d8caa93cee863a83fccd733ef9a6bbdd8bd5a7178316d9a409c"
+        },
+        "test": {
+          "file": "test.csv",
+          "words": 5010,
+          "positive": 2508,
+          "empty_positive": 8,
+          "min_len": 0,
+          "max_len": 500,
+          "sha256": "f552006c0e12009f140638d6ae427491c05e73ebe8f74b8a067c1cbfd99b6fd1"
+        },
+        "test-edit-distance": {
+          "file": "test-edit-distance.csv",
+          "words": 50,
+          "positive": 0,
+          "empty_positive": 0,
+          "min_len": 6,
+          "max_len": 496,
+          "sha256": "cf53816388f4a23a39be0c0cd2c787e8fbe427d862afa812f4485578db8b1009"
+        },
+        "validation-long": {
+          "file": "validation-long.csv",
+          "words": 1000,
+          "positive": 497,
+          "empty_positive": 10,
+          "min_len": 0,
+          "max_len": 80,
+          "sha256": "5645ee946f1e8132db5e7164545267174dc26ec969c52e8e241bd41696f95ac9"
+        },
+        "validation-short": {
+          "file": "validation-short.csv",
+          "words": 1000,
+          "positive": 507,
+          "empty_positive": 27,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "e67c5b3168f074e7a2668b685e895fa09f75a21a690b73836906606593f5fd01"
+        }
+      }
+    },
+    "stack-manipulation": {
+      "chomsky": "DCF",
+      "star_free": null,
+      "alphabet": "a,b,c,d,e",
+      "splits": {
+        "train": {
+          "file": "train.csv",
+          "words": 10000,
+          "positive": 5056,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "f0a0f7d34d6fc95f5d540f90ecd57a8642fbd18eb199ca8d45a19a9e6bd45b97"
+        },
+        "test": {
+          "file": "test.csv",
+          "words": 5010,
+          "positive": 2447,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 500,
+          "sha256": "830d3359cad5cc10f63d707f783a0758d8825e53e2882ec8dd6c34356e43095f"
+        },
+        "test-short-held-out": {
+          "file": "test-short-held-out.csv",
+          "words": 1000,
+          "positive": 482,
+          "empty_positive": 0,
+          "min_len": 3,
+          "max_len": 40,
+          "sha256": "16074536431d6f59067b1bed52cab8010a14353c9a1983d130648c0e7134f243"
+        },
+        "validation-long": {
+          "file": "validation-long.csv",
+          "words": 1000,
+          "positive": 496,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 80,
+          "sha256": "4efd274f0905a4cec9ebf19c60679eb0bc4b9fa09491cd7f03b387236db33221"
+        },
+        "validation-short": {
+          "file": "validation-short.csv",
+          "words": 1000,
+          "positive": 506,
+          "empty_positive": 0,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "b682f490bf45f0016c4e258bc646713a67859df6c39a1f7384bcd01418464503"
+        }
+      }
+    },
+    "unmarked-reversal": {
+      "chomsky": "CF",
+      "star_free": null,
+      "alphabet": "a,b",
+      "splits": {
+        "train": {
+          "file": "train.csv",
+          "words": 10000,
+          "positive": 5058,
+          "empty_positive": 248,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "a190479554715e09f6aa61d71a3e31d6242d4236479e5777140bf5f691026bd0"
+        },
+        "test": {
+          "file": "test.csv",
+          "words": 5010,
+          "positive": 2518,
+          "empty_positive": 11,
+          "min_len": 0,
+          "max_len": 500,
+          "sha256": "4e270148cd91191c8e10513c013d1140299050d609798747a127964874cadd37"
+        },
+        "test-short-held-out": {
+          "file": "test-short-held-out.csv",
+          "words": 1000,
+          "positive": 501,
+          "empty_positive": 0,
+          "min_len": 6,
+          "max_len": 40,
+          "sha256": "3f2182a9a20f1c027376d08664371a032319712c06b5eba4d465aff3508da4ed"
+        },
+        "validation-long": {
+          "file": "validation-long.csv",
+          "words": 1000,
+          "positive": 521,
+          "empty_positive": 11,
+          "min_len": 0,
+          "max_len": 80,
+          "sha256": "35fee1d55ee0643e8ab519ab59a0956381cc668a97d8fdfca2d8e56d885fd8b9"
+        },
+        "validation-short": {
+          "file": "validation-short.csv",
+          "words": 1000,
+          "positive": 492,
+          "empty_positive": 17,
+          "min_len": 0,
+          "max_len": 40,
+          "sha256": "2b89c160e1bb76f77add82edf5d4c76251329ef2f3dac79f1d33361fd6ae0e49"
+        }
+      }
+    }
+  }
+}

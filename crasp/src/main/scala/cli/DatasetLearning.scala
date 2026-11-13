@@ -62,3 +62,17 @@ object Evaluate:
       error => throw new IllegalArgumentException(error.toString), identity)
     val word = if args(2).isEmpty then Vector.empty else args(2).toVector.map(_.toString)
     println(new CRASPEvaluator(program).classifyWith(args(1), word))
+
+/** Batch form of [[Evaluate]]: one word per line (an empty line is the empty
+  * word), one answer per line, so scoring a dataset costs one JVM start. */
+object EvaluateWords:
+  def main(args: Array[String]): Unit =
+    require(args.length == 3, "expected FILE OUTPUT WORDS_FILE")
+    val program = CRASPParser.parseFile(args(0), enforceOrder = false).fold(
+      error => throw new IllegalArgumentException(error.toString), identity)
+    val evaluator = new CRASPEvaluator(program)
+    val body = Files.readString(Path.of(args(2)))
+    val words = if body.isEmpty then Nil else body.stripSuffix("\n").split("\n", -1).toList
+    val out = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(System.out)))
+    words.foreach(w => out.println(evaluator.classifyWith(args(1), w.toVector.map(_.toString))))
+    out.flush()

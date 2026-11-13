@@ -37,3 +37,8 @@ brasp/results/**/inputs/
 
 # Unrelated paper draft (not part of the tool)
 brasp/circuit/
+
+# Generated benchmark data (recreate with benchmarks/learning/fetch_flare.py)
+benchmarks/learning/flare/*
+!benchmarks/learning/flare/manifest.json
+benchmarks/learning/results/programs/

@@ -18,9 +18,10 @@ object LocalSearch:
       startTemperature: Double = 1.0,
       cooling: Double = 0.9995,
       /** Weight each error by its class size (FN/#pos + FP/#neg) instead of
-        * counting errors. Avoids the reject-everything trap when distinct
-        * positives are rare (e.g. FLaRe repeat-01). */
-      balanced: Boolean = false,
+        * counting errors (default). Avoids the reject-everything trap when
+        * distinct positives are rare (e.g. FLaRe repeat-01); `false` restores
+        * the raw error count. */
+      balanced: Boolean = true,
   ):
     require(iterations >= 0 && restarts > 0 && slots > 0 && expressionDepth >= 0)
     require(startTemperature.isFinite && startTemperature > 0)

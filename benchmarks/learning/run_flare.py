@@ -52,7 +52,7 @@ def run_one(args, lang, learner, seed, alphabet, work):
     cmd = [str(RASP), learner, 'learn', '--data', str(train), '--alphabet', alphabet, '--out', str(program),
            '--seed', str(seed), '--iters', str(args.iters), '--restarts', str(args.restarts)]
     if learner == 'brasp':
-        cmd += ['--slots', str(args.slots), '--depth', str(args.depth)] + (['--balanced'] if args.balanced else [])
+        cmd += ['--slots', str(args.slots), '--depth', str(args.depth)] + ([] if args.balanced else ['--no-balanced'])
     else:
         cmd += ['--bools', str(args.bools), '--counts', str(args.counts)]
     record = {'language': lang, 'learner': learner, 'seed': seed, 'train_words': n_train,

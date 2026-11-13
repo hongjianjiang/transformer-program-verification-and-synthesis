@@ -33,11 +33,13 @@ class LocalSearchSuite extends munit.FunSuite:
   test("balanced objective reports raw errors, is reproducible, and respects its budget") {
     // (ab)* up to length 4: 3 positives against 28 negatives.
     val data = words(4).map(w => Example(w, w.grouped(2).forall(_ == Vector("a", "b"))))
-    val cfg = Config(seed = 3, slots = 4, iterations = 2000, restarts = 2, balanced = true)
-    val result = learn(alphabet, data, cfg)
-    assertEquals(result.errors, data.count(e => Brasp.accepts(result.program, e.word) != e.accepted))
-    assertEquals(learn(alphabet, data, cfg), result)
-    assert(result.evaluations <= cfg.restarts.toLong * (cfg.iterations + 1))
+    val cfg = Config(seed = 3, slots = 4, iterations = 2000, restarts = 2)
+    assert(cfg.balanced, "balanced objective is the default")
+    for c <- Seq(cfg, cfg.copy(balanced = false)) do
+      val result = learn(alphabet, data, c)
+      assertEquals(result.errors, data.count(e => Brasp.accepts(result.program, e.word) != e.accepted))
+      assertEquals(learn(alphabet, data, c), result)
+      assert(result.evaluations <= c.restarts.toLong * (c.iterations + 1))
   }
 
   test("empty word is evaluated at BOS; budget exhaustion is not success") {

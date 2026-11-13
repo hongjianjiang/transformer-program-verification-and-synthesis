@@ -43,7 +43,10 @@ Conflicting labels and symbols outside the alphabet are rejected.
 
 Options: `--iters` (20000 per restart), `--restarts` (4), `--slots` (6 mutable
 definitions, in addition to fixed BOS and symbol inputs), `--depth` (2 for
-Boolean expression trees), and `--seed` (0). Search stops on a perfect sample
+Boolean expression trees), and `--seed` (0). By default the search objective
+weights each error by its class size (FN/#positives + FP/#negatives), so rare
+positives are not drowned out; `--no-balanced` counts raw errors instead.
+Search stops on a perfect sample
 fit or budget exhaustion and writes the best candidate in either case.
 Exit codes are 0 for sample consistency, 2 for exhausted search with errors,
 and 1 for invalid input. Use the Java command when the exit code matters.

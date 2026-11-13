@@ -21,6 +21,14 @@ class CliTests(unittest.TestCase):
             self.assertIn('10', command)
             self.assertIn('brasp.synthesis.RunSynthesis' if language == 'brasp' else 'cli.DatasetLearning', command)
 
+    def test_brasp_balanced_search_is_default_and_can_be_disabled(self):
+        base = ['brasp', 'learn', '--data', 'd.csv', '--alphabet', 'a,b', '--out', 'o.brasp']
+        with patch.object(rasp, 'classpath', return_value='/classes'):
+            default = rasp.learn_command(rasp.parser().parse_args(base))
+            disabled = rasp.learn_command(rasp.parser().parse_args(base + ['--no-balanced']))
+        self.assertNotIn('--no-balanced', default)
+        self.assertIn('--no-balanced', disabled)
+
     def test_binary_relation_validation_happens_before_backend(self):
         with patch.object(rasp, 'verify_brasp') as backend, contextlib.redirect_stderr(io.StringIO()):
             with self.assertRaises(SystemExit):

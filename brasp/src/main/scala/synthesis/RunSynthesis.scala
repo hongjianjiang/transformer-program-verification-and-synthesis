@@ -7,10 +7,10 @@ import LocalSearch.*
 /** Separate entry point so existing verification commands remain compatible. */
 object RunSynthesis:
   private val usage = """Usage: brasp.synthesis.RunSynthesis --data FILE --alphabet a,b --out FILE
-    |  [--seed N] [--iters N] [--restarts N] [--slots N] [--depth N] [--tokens] [--balanced]
+    |  [--seed N] [--iters N] [--restarts N] [--slots N] [--depth N] [--tokens] [--no-balanced]
     |Dataset: one +,word or -,word per line; +, and -, denote the empty word.
     |--tokens interprets words as whitespace-separated symbols instead of characters.
-    |--balanced weights errors by class size (FN/#pos + FP/#neg) during search.
+    |Search weights errors by class size (FN/#pos + FP/#neg); --no-balanced counts raw errors.
     |Exit codes: 0 = fits samples, 2 = search exhausted, 1 = invalid input.
     |The best candidate is saved even when the search exhausts its budget.
     |Sample consistency does not establish language equivalence.
@@ -34,15 +34,15 @@ object RunSynthesis:
     try
       var options = Map.empty[String, String]
       var tokens = false
-      var balanced = false
+      var balanced = true
       var i = 0
       val keys = Set("--data", "--alphabet", "--out", "--seed", "--iters", "--restarts", "--slots", "--depth")
       while i < args.length do
         if args(i) == "--tokens" then
           tokens = true
           i += 1
-        else if args(i) == "--balanced" then
-          balanced = true
+        else if args(i) == "--balanced" || args(i) == "--no-balanced" then
+          balanced = args(i) == "--balanced"
           i += 1
         else
           require(keys(args(i)) && i + 1 < args.length, s"unknown option or missing value: ${args(i)}")

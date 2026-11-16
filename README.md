@@ -115,6 +115,9 @@ opam install --deps-only ./kind2   # OCaml dependencies (may prompt for zmq)
 make -C kind2                      # produces kind2/bin/kind2
 ```
 
+Alternatively, copy a prebuilt Kind2 v3.0.0 binary (from the GitHub release)
+to `kind2/bin/kind2`; that directory is git-ignored by the submodule.
+
 A Kind2 config is TOML with `kind2_executable = "/path/to/kind2"`.
 `--timeout SECONDS` defaults to 120 (B-RASP compilation and solving, excluding
 build; C-RASP solving). Verdicts go to stdout; solver diagnostics, including

@@ -84,7 +84,7 @@ def parser():
             verify.add_argument('--output-rule', default='Out')
             verify.add_argument('--other-output-rule', default='Out')
             verify.add_argument('--config', type=absolute, help='Kind2 TOML configuration')
-            verify.add_argument('--kind2', help='Kind2 executable; overrides --config (default: KIND2_BIN or kind2)')
+            verify.add_argument('--kind2', help='Kind2 executable; overrides --config (default: KIND2_BIN, workspace kind2/bin/kind2, or PATH)')
     return p
 
 
@@ -264,7 +264,9 @@ def classify_kind2(code, text):
 
 def verify_crasp(args):
     configuration = tomllib.loads(Path(args.config).read_text()) if args.config else {}
-    executable = args.kind2 or configuration.get('kind2_executable') or os.environ.get('KIND2_BIN', 'kind2')
+    local_kind2 = ROOT / 'kind2/bin/kind2'
+    default = str(local_kind2) if local_kind2.is_file() else 'kind2'
+    executable = args.kind2 or configuration.get('kind2_executable') or os.environ.get('KIND2_BIN', default)
     executable = shutil.which(executable)
     if not executable:
         raise RuntimeError('Kind2 not found; pass --kind2 /path/to/kind2, --config FILE, or set KIND2_BIN')

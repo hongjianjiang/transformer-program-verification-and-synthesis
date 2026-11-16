@@ -1,3 +1,6 @@
 [submodule "abc"]
 	path = abc
 	url = https://github.com/berkeley-abc/abc.git
+[submodule "kind2"]
+	path = kind2
+	url = https://github.com/kind2-mc/kind2.git

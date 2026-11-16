@@ -96,12 +96,23 @@ stream; `disjoint` is also available. Binary comparisons accept
 across one another by this CLI. C-RASP comparison requires matching alphabets.
 
 Set `ABC_BIN` or `KIND2_BIN` instead of passing executable paths each time.
-The CLI also automatically finds a workspace-local ABC at `abc/abc`.
+The CLI also automatically finds a workspace-local ABC at `abc/abc` and
+Kind2 at `kind2/bin/kind2`.
 ABC is included as a git submodule pinned to a tested commit. To build it:
 
 ```sh
 git submodule update --init abc   # or clone with --recurse-submodules
 make -C abc -j4 ABC_USE_NO_READLINE=1
+```
+
+Kind2 is likewise a git submodule pinned to release v3.0.0, and the CLI
+automatically finds `kind2/bin/kind2`. Building it needs OPAM (OCaml) and the
+ZeroMQ C library; at run time it needs an SMT solver, Z3 by default, on `PATH`.
+
+```sh
+git submodule update --init kind2
+opam install --deps-only ./kind2   # OCaml dependencies (may prompt for zmq)
+make -C kind2                      # produces kind2/bin/kind2
 ```
 
 A Kind2 config is TOML with `kind2_executable = "/path/to/kind2"`.

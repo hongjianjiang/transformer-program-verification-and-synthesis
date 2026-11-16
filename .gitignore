@@ -42,3 +42,6 @@ brasp/circuit/
 benchmarks/learning/flare/*
 !benchmarks/learning/flare/manifest.json
 benchmarks/learning/results/programs/
+
+# Third-party solver binary (download NuSMV 2.7.1 from nusmv.fbk.eu)
+nusmv/

@@ -79,7 +79,25 @@ B-RASP compiles the bad language to a direct summary circuit and runs ABC PDR.
 For `empty`, the bad language is the input; for `subset`, it is left minus
 right; for `equivalent`, it is their symmetric difference.
 
+`--route` picks how the bad language's emptiness is decided (all three
+relations work with every route):
+
+| `--route` | Pipeline | Needs |
+| --- | --- | --- |
+| `circuit` (default) | B-RASP → 2LTL → direct summary circuit → ABC | ABC |
+| `direct-support`, `direct-realizable` | 2LTL → direct circuit variants → ABC | ABC |
+| `one-variable`, `one-variable-shared`, `one-variable-realizable` | 2LTL → one-variable LTL → circuit → ABC | ABC |
+| `aalta`, `lydia`, `lisa`, `black` | 2LTL → one-variable LTLf → LTLf solver | the solver (see below) |
+| `nusmv-bdd`, `nusmv-bmc` | 2LTL → one-variable LTL → NuSMV | NuSMV |
+
+`nusmv-bmc` is bounded: it can refute but never prove, so a true property
+reports UNKNOWN. On NOT PROVED, `aalta` prints a replayed witness word to
+stderr. Solver routes call the drivers in `brasp/scripts/` with the
+assembly jar, which the CLI rebuilds when sources change.
+
 ```sh
+./rasp brasp verify equivalent A.brasp B.brasp --route aalta
+./rasp brasp verify empty prog.brasp --route nusmv-bdd
 ./rasp brasp verify empty brasp/examples/brasp/contains_ab.brasp --abc /path/to/abc
 ./rasp brasp verify equivalent reference.brasp learned.brasp --abc /path/to/abc
 ./rasp brasp verify subset candidate.brasp specification.brasp --abc /path/to/abc
@@ -117,6 +135,40 @@ make -C kind2                      # produces kind2/bin/kind2
 
 Alternatively, copy a prebuilt Kind2 v3.0.0 binary (from the GitHub release)
 to `kind2/bin/kind2`; that directory is git-ignored by the submodule.
+
+### Baseline solvers (B-RASP one-variable LTL route)
+
+The paper's baselines translate B-RASP → 2LTL → one-variable LTL and hand the
+formula to an off-the-shelf solver (`brasp/scripts/aalta_baseline.py`,
+`nusmv_baseline.py`, `ltlf_solver_baseline.py`). Aalta is a git submodule;
+its bundled MiniSat needs a two-line patch to compile with current clang:
+
+```sh
+git submodule update --init aaltaf
+git -C aaltaf apply ../brasp/scripts/ltlf_solvers/aaltaf.patch
+make -C aaltaf FLAG="-I./ -I./minisat/ -D __STDC_LIMIT_MACROS -D __STDC_FORMAT_MACROS -std=gnu++98 -w"
+```
+
+NuSMV 2.7.1 is a binary download (git-ignored) into `nusmv/`, which the
+NuSMV scripts use when `NuSMV` is not on `PATH`:
+
+```sh
+curl -LO https://nusmv.fbk.eu/distrib/2.7.1/NuSMV-2.7.1-macos-universal.tar.xz
+tar xf NuSMV-2.7.1-macos-universal.tar.xz && mkdir -p nusmv
+cp -R NuSMV-2.7.1-macosx/* nusmv/
+```
+
+The macOS binary links MacPorts libraries under `/opt/local/lib`. Without
+MacPorts, relink it to the system `libxml2`/`libedit` and Homebrew `gmp`:
+
+```sh
+for b in nusmv/bin/NuSMV nusmv/bin/ltl2smv; do
+  install_name_tool -change /opt/local/lib/libxml2.2.dylib /usr/lib/libxml2.2.dylib \
+    -change /opt/local/lib/libedit.0.dylib /usr/lib/libedit.3.dylib \
+    -change /opt/local/lib/libgmp.10.dylib "$(brew --prefix gmp)/lib/libgmp.10.dylib" "$b"
+  codesign -f -s - "$b"
+done
+```
 
 A Kind2 config is TOML with `kind2_executable = "/path/to/kind2"`.
 `--timeout SECONDS` defaults to 120 (B-RASP compilation and solving, excluding

@@ -14,6 +14,9 @@ solver and records emptiness, in the same record format as
 | Lydia (`lydia-empty`) | LTLf → LDLf → MONA DFA | `X` → `X[!]`, `N` → `X`; non-lowercase names quoted | `EMPTY`/`NONEMPTY` | none |
 | LTL2SAT | SAT reduction | not yet integrated, see below | | |
 
+Aalta is the `aaltaf/` submodule at the repository root; apply `aaltaf.patch`
+(MiniSat `mkLit` default argument, rejected by current clang) before `make`.
+
 Lisa and Lydia verdicts cannot be replayed; pass `--reference` a decided
 records file (e.g. the Aalta or circuit run) to flag disagreements.
 

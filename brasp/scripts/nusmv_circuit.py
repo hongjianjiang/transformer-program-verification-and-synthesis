@@ -184,7 +184,7 @@ def main() -> None:
     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     p.add_argument("inputs", type=Path, nargs="+", help=".ltl files, or directories to scan for *.ltl")
     add_solver_arguments(p, "results/nusmv_circuit")
-    p.add_argument("--nusmv", type=Path, default=ROOT / "tmp/nusmv/NuSMV-2.7.1-macosx/bin/NuSMV")
+    p.add_argument("--nusmv", type=Path, default=Path(__file__).resolve().parents[2] / "nusmv/bin/NuSMV")
     p.add_argument("--engine", choices=["bdd", "kind"], default="bdd")
     p.add_argument("--bound", type=int, default=10000, help="k-induction depth limit for --engine kind")
     p.add_argument("--reference", type=Path, action="append", default=[],

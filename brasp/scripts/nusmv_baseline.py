@@ -211,7 +211,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("inputs", nargs="*", type=Path)
     parser.add_argument("--manifest", type=Path, help="TSV: task, input name, path (Figure 3)")
-    parser.add_argument("--nusmv", type=Path, default=Path(shutil.which("NuSMV") or "NuSMV"))
+    parser.add_argument("--nusmv", type=Path, default=Path(shutil.which("NuSMV") or Path(__file__).resolve().parents[2] / "nusmv/bin/NuSMV"))
     parser.add_argument("--jar", type=Path, default=Path("target/scala-3.5.1/brasp-verification.jar"))
     parser.add_argument("--engine", choices=("bdd", "bmc"), default="bdd")
     parser.add_argument("--bound", type=int, default=100, help="BMC maximum transition bound; exhaustion is inconclusive")

@@ -21,7 +21,7 @@ from ltlf_solver_baseline import load_reference
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--nusmv", type=Path, required=True)
+    parser.add_argument("--nusmv", type=Path, default=Path(__file__).resolve().parents[2] / "nusmv/bin/NuSMV")
     parser.add_argument("--out", type=Path, default=Path("results/nusmv_figure3_20260923"))
     parser.add_argument("--timeout", type=float, default=900)
     parser.add_argument("--repetitions", type=int, default=3)

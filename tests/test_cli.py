@@ -41,6 +41,21 @@ class CliTests(unittest.TestCase):
         self.assertEqual(rasp.classify_abc(0, 'Property proved. Time = 0.1'), ('PROVED', 0))
         self.assertEqual(rasp.classify_abc(0, 'Output 0 of miter "model" was asserted in frame 2.'), ('NOT PROVED', 2))
 
+    def test_brasp_route_defaults_to_circuit_and_lists_baselines(self):
+        args = rasp.parser().parse_args(['brasp', 'verify', 'empty', 'p.brasp'])
+        self.assertEqual(args.route, 'circuit')
+        for route in ('one-variable', 'aalta', 'lydia', 'nusmv-bdd', 'nusmv-bmc'):
+            self.assertEqual(rasp.parser().parse_args(['brasp', 'verify', 'empty', 'p.brasp', '--route', route]).route,
+                             route)
+
+    def test_baseline_verdict_needs_a_decided_status(self):
+        self.assertEqual(rasp.classify_baseline({'status': 'empty'}), ('PROVED', 0))
+        self.assertEqual(rasp.classify_baseline({'status': 'nonempty'}), ('NOT PROVED', 2))
+        for status in ('timeout', 'unknown', 'bound', 'size-limit'):
+            self.assertEqual(rasp.classify_baseline({'status': status}), ('UNKNOWN', 3))
+        self.assertEqual(rasp.classify_baseline({'status': 'error'}), ('ERROR', 1))
+        self.assertEqual(rasp.classify_baseline({}), ('ERROR', 1))
+
     def test_kind2_requires_explicit_property_answers(self):
         def xml(answer):
             return f'<Results><Property><Answer>{answer}</Answer></Property></Results>'

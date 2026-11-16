@@ -4,3 +4,7 @@
 [submodule "kind2"]
 	path = kind2
 	url = https://github.com/kind2-mc/kind2.git
+[submodule "aaltaf"]
+	path = aaltaf
+	url = https://github.com/lijwen2748/aaltaf.git
+	ignore = dirty

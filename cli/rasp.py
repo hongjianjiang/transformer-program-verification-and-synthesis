@@ -13,6 +13,11 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 LANGUAGES = ('brasp', 'crasp')
+CIRCUIT_ROUTES = ('direct-support', 'direct-realizable', 'one-variable', 'one-variable-shared',
+                  'one-variable-realizable')
+LTLF_ROUTES = ('aalta', 'lydia', 'lisa', 'black')
+NUSMV_ROUTES = ('nusmv-bdd', 'nusmv-bmc')
+BRASP_ROUTES = ('circuit', *CIRCUIT_ROUTES, *LTLF_ROUTES, *NUSMV_ROUTES)
 
 
 def absolute(value):
@@ -80,6 +85,11 @@ def parser():
             local_abc = ROOT / 'abc/abc'
             verify.add_argument('--abc', default=os.environ.get('ABC_BIN', str(local_abc) if local_abc.is_file() else 'abc'),
                                 help='ABC executable (default: ABC_BIN, workspace abc/abc, or PATH)')
+            verify.add_argument('--route', choices=BRASP_ROUTES, default='circuit',
+                                help='circuit (default): B-RASP -> 2LTL -> direct circuit -> ABC; '
+                                     'direct-*/one-variable*: other circuit encodings -> ABC; '
+                                     'aalta/lydia/lisa/black: one-variable LTLf -> LTLf solver; '
+                                     'nusmv-bdd/nusmv-bmc: one-variable LTL -> NuSMV')
         else:
             verify.add_argument('--output-rule', default='Out')
             verify.add_argument('--other-output-rule', default='Out')
@@ -209,26 +219,95 @@ def classify_abc(code, text):
     return 'UNKNOWN', 3
 
 
+def brasp_jar():
+    """Assembly jar used by the baseline scripts; rebuilt when any source is newer."""
+    project = ROOT / 'brasp'
+    jar = project / 'target/scala-3.5.1/brasp-verification.jar'
+    newest = max(mtime for _, mtime, _ in source_stamp(project))
+    if not jar.is_file() or jar.stat().st_mtime_ns < newest:
+        if subprocess.run(['sbt', '-batch', '-no-colors', 'assembly'], cwd=project,
+                          stdout=sys.stderr, stderr=sys.stderr).returncode:
+            raise RuntimeError('brasp assembly failed')
+    return jar
+
+
+def run_abc(abc, directory, deadline):
+    import time
+    solved = subprocess.run([abc, '-c', 'read_aiger model.aig; scleanup; dc2; pdr; print_status'],
+                            cwd=directory, capture_output=True, text=True,
+                            timeout=max(.001, deadline - time.monotonic()))
+    print(solved.stdout + solved.stderr, file=sys.stderr, end='')
+    return classify_abc(solved.returncode, solved.stdout + solved.stderr)
+
+
+def classify_baseline(record):
+    status = record.get('status')
+    if status == 'empty':
+        return 'PROVED', 0
+    if status == 'nonempty':
+        return 'NOT PROVED', 2
+    if status == 'error' or (status or '').startswith('export') or status is None:
+        return 'ERROR', 1
+    return 'UNKNOWN', 3
+
+
+def run_baseline(args, bad, directory, deadline):
+    """Run one of brasp/scripts' baseline drivers on the bad-language program."""
+    import time
+    remaining = max(1.0, deadline - time.monotonic())
+    records = Path(directory) / 'records.jsonl'
+    if args.route == 'aalta':
+        script, extra = 'aalta_baseline.py', ['--witness']
+    elif args.route in LTLF_ROUTES:
+        script, extra = 'ltlf_solver_baseline.py', ['--solver', args.route]
+    else:
+        script, extra = 'nusmv_baseline.py', ['--engine', args.route.removeprefix('nusmv-')]
+    command = [sys.executable, f'scripts/{script}', str(bad), *extra, '--jar', str(brasp_jar()),
+               '--repetitions', '1', '--timeout', str(remaining), '--out', str(records)]
+    solved = subprocess.run(command, cwd=ROOT / 'brasp', capture_output=True, text=True,
+                            timeout=remaining + 30)
+    print(solved.stdout + solved.stderr, file=sys.stderr, end='')
+    lines = records.read_text().splitlines() if records.is_file() else []
+    if not lines:
+        return 'ERROR', 1
+    record = json.loads(lines[-1])
+    if record.get('witness') is not None:
+        print('witness: ' + (' '.join(record['witness']) or '(empty word)'), file=sys.stderr)
+    return classify_baseline(record)
+
+
 def verify_brasp(args):
-    abc = shutil.which(args.abc)
-    if not abc:
-        raise RuntimeError('ABC not found; pass --abc /path/to/abc or set ABC_BIN')
-    cp = classpath('brasp')
     import time
     deadline = time.monotonic() + args.timeout
+    uses_abc = args.route == 'circuit' or args.route in CIRCUIT_ROUTES
+    abc = shutil.which(args.abc) if uses_abc else None
+    if uses_abc and not abc:
+        raise RuntimeError('ABC not found; pass --abc /path/to/abc or set ABC_BIN')
+    cp = classpath('brasp')
     with tempfile.TemporaryDirectory(prefix='rasp-verify-') as directory:
         # Relative fixed file name avoids embedding user paths in ABC's command language.
         model = str(Path(directory) / 'model.aig')
+        if args.route == 'circuit':
+            target = model
+        else:
+            # Alternative routes check emptiness of the bad-language program.
+            target = str(Path(directory) / 'bad.brasp')
         compile_cmd = ['java', '-Xss16m', '-cp', cp, 'brasp.synthesis.VerificationModel',
-                       args.relation, args.input, args.other or '-', model]
+                       args.relation, args.input, args.other or '-', target]
         compiled = subprocess.run(compile_cmd, timeout=max(.001, deadline - time.monotonic()))
         if compiled.returncode:
             return 1
-        solved = subprocess.run([abc, '-c', 'read_aiger model.aig; scleanup; dc2; pdr; print_status'],
-                                cwd=directory, capture_output=True, text=True,
-                                timeout=max(.001, deadline - time.monotonic()))
-        print(solved.stdout + solved.stderr, file=sys.stderr, end='')
-        verdict, code = classify_abc(solved.returncode, solved.stdout + solved.stderr)
+        if args.route in CIRCUIT_ROUTES:
+            encoded = subprocess.run(['java', '-Xss16m', '-cp', cp, 'brasp.CircuitStudy', target, args.route, model],
+                                     capture_output=True, text=True,
+                                     timeout=max(.001, deadline - time.monotonic()))
+            print(encoded.stdout + encoded.stderr, file=sys.stderr, end='')
+            if encoded.returncode:
+                return 1
+        if uses_abc:
+            verdict, code = run_abc(abc, directory, deadline)
+        else:
+            verdict, code = run_baseline(args, target, directory, deadline)
         print(verdict)
         return code
 
